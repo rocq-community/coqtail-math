@@ -1,0 +1,61 @@
+cff-version: 1.2.0
+title: Coqtail
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Guillaume
+    family-names: Allais
+    affiliation: University of Strathclyde in Glasgow
+    email: guillaume.allais@ens-lyon.org
+    orcid: 'https://orcid.org/0000-0002-4091-657X'
+    alias: gallais
+  - given-names: Jean-Marie
+    family-names: Madiot
+    orcid: 'https://orcid.org/0009-0009-2723-8418'
+    email: jean-marie.madiot@inria.fr
+    affiliation: INRIA
+    alias: jmadiot
+  - given-names: Karl
+    family-names: Palmskog
+    orcid: 'https://orcid.org/0000-0003-0228-1240'
+    affiliation: KTH Royal Institute of Technology
+    email: palmskog@kth.se
+    alias: palmskog
+  - given-names: Pierre-Marie
+    family-names: Pédrot
+    email: pierre-marie.pedrot@inria.fr
+    affiliation: Inria
+    orcid: 'https://orcid.org/0009-0002-8006-6239'
+    alias: ppedrot
+contact:
+  - given-names: Pierre-Marie
+    family-names: Pédrot
+    email: pierre-marie.pedrot@inria.fr
+    affiliation: Inria
+    orcid: 'https://orcid.org/0009-0002-8006-6239'
+    alias: ppedrot
+identifiers:
+  - type: url
+    value: 'https://github.com/rocq-community/coqtail-math'
+repository-code: 'https://github.com/rocq-community/coqtail-math'
+url: 'https://coqtail.github.io/'
+abstract: >-
+  The COQTAIL project is the biological son of the
+  workpackage ‘Proofs’ of the COQUILLE project. It is
+  therefore based on all the results obtained during the
+  development of COQUILLE.
+
+  In addition to implementing tools dedicated to the easy
+  formalization of mathematics as we see them in french
+  Classes préparatoires, this project will proove
+  Bachelor-level results.
+keywords:
+  - coq
+  - real-analysis
+  - complex-analysis
+license: LGPL-3.0
+commit: 1d65c7f
+version: '8.20'
+date-released: '2024-07-13'

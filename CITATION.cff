@@ -40,7 +40,9 @@ authors:
     affiliation: KTH Royal Institute of Technology
     email: palmskog@kth.se
     alias: palmskog
-  - alias: pamaury
+  - given-names: Amaury
+    family-names: Pouly
+    alias: pamaury
   - given-names: Pierre-Marie
     family-names: Pédrot
     email: pierre-marie.pedrot@inria.fr

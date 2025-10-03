@@ -53,12 +53,12 @@ authors:
     family-names: Perrinel
     alias: mperrine
 contact:
-  - given-names: Pierre-Marie
-    family-names: Pédrot
-    email: pierre-marie.pedrot@inria.fr
-    affiliation: Inria
-    orcid: 'https://orcid.org/0009-0002-8006-6239'
-    alias: ppedrot
+  - given-names: Jean-Marie
+    family-names: Madiot
+    orcid: 'https://orcid.org/0009-0009-2723-8418'
+    email: jean-marie.madiot@inria.fr
+    affiliation: INRIA
+    alias: jmadiot
 identifiers:
   - type: url
     value: 'https://github.com/rocq-community/coqtail-math'

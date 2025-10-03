@@ -11,6 +11,17 @@ authors:
     email: guillaume.allais@ens-lyon.org
     orcid: 'https://orcid.org/0000-0002-4091-657X'
     alias: gallais
+  - given-names: Marthe
+    family-names: Bonamy
+    affiliation: CNRS
+    email: marthe.bonamy@u-bordeaux.fr
+    orcid: 'https://orcid.org/0000-0001-7905-8018'
+  - given-names: Sylvain
+    family-names: Dailler
+  - given-names: Marc
+    family-names: Lasson
+    affiliation: LexiFi
+    email: marc.lasson@gmail.com
   - given-names: Jean-Marie
     family-names: Madiot
     orcid: 'https://orcid.org/0009-0009-2723-8418'

@@ -18,6 +18,12 @@ authors:
     orcid: 'https://orcid.org/0000-0001-7905-8018'
   - given-names: Sylvain
     family-names: Dailler
+  - given-names: Hugo
+    family-names: Férée
+    affiliation: Université Paris Cité
+    email: feree@irif.fr
+    orcid: 'https://orcid.org/0000-0003-3103-5612'
+    alias: hferee
   - given-names: Marc
     family-names: Lasson
     affiliation: LexiFi
@@ -34,12 +40,16 @@ authors:
     affiliation: KTH Royal Institute of Technology
     email: palmskog@kth.se
     alias: palmskog
+  - alias: pamaury
   - given-names: Pierre-Marie
     family-names: Pédrot
     email: pierre-marie.pedrot@inria.fr
     affiliation: Inria
     orcid: 'https://orcid.org/0009-0002-8006-6239'
     alias: ppedrot
+  - given-names: Matthieu
+    family-names: Perrinel
+    alias: mperrine
 contact:
   - given-names: Pierre-Marie
     family-names: Pédrot

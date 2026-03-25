@@ -1,4 +1,4 @@
-Require Import Rbase Ranalysis Lia Lra.
+Require Import Arith Rbase Ranalysis Lia Lra.
 Require Import Rfunctions Rfunction_facts Rextensionality.
 Require Import Rinterval Ranalysis_def Ranalysis_def_simpl Ranalysis_facts.
 Require Import Ranalysis_continuity Ranalysis_derivability Ranalysis_monotonicity.

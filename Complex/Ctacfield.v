@@ -53,7 +53,7 @@ Proof.
   exact Cinv_l.
 Qed.
 
-Lemma C_power_theory : power_theory C1 Cmult (eq (A:=C)) nat_of_N Cpow.
+Lemma C_power_theory : power_theory C1 Cmult (eq (A:=C)) BinNat.nat_of_N Cpow.
 Proof.
 constructor. 
 intros z n ; elim n ; clear n.
@@ -67,7 +67,7 @@ Qed.
 Ltac Cpow_tac t := 
   match isnatcst t with
   | false => constr:(InitialRing.NotConstant)
-  | _ => constr:(N_of_nat t)
+  | _ => constr:(BinNat.N_of_nat t)
   end. 
 
 Add Ring CRing : Cring( abstract).

@@ -20,7 +20,7 @@ USA.
 *)
 
 (** Common definitions of real sequences. *)
-Require Export Reals.
+Require Export Arith Reals.
 
 Declare Scope Rseq_scope.
 Delimit Scope Rseq_scope with Rseq.

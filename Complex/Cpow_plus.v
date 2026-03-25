@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
 USA.
 *)
 
+Require Import Arith.
 Require Import Ctacfield.
 Require Import Cbase.
 Require Import Cprop_base.

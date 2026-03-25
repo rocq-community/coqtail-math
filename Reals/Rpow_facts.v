@@ -1,4 +1,4 @@
-Require Import Reals MyRIneq Fourier Lia Lra.
+Require Import Arith Reals MyRIneq Fourier Lia Lra.
 Require Import Rsequence_usual_facts.
 
 Local Open Scope R_scope.

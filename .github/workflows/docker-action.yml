@@ -17,14 +17,16 @@ jobs:
     strategy:
       matrix:
         image:
-          - 'coqorg/coq:dev'
+          - 'rocq/rocq-prover:dev'
+          - 'rocq/rocq-prover:9.1'
+          - 'rocq/rocq-prover:9.0'
           - 'coqorg/coq:8.20'
           - 'coqorg/coq:8.19'
           - 'coqorg/coq:8.18'
           - 'coqorg/coq:8.17'
       fail-fast: false
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: coq-community/docker-coq-action@v1
         with:
           opam_file: 'coq-coqtail.opam'

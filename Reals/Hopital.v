@@ -404,7 +404,7 @@ Proof.
 
    apply Rle_lt_trans with (a + (b-a) / 2).
     apply Rplus_le_compat.
-     now intuition.
+     now auto with *.
 
      now apply Rmin_l.
 
@@ -445,7 +445,7 @@ Proof.
    
    apply Rle_lt_trans with (a + (b-a) / 2).
     apply Rplus_le_compat.
-     now intuition.
+     now auto with *.
      
      now apply Rmin_l.
    

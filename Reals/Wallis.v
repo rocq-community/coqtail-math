@@ -207,7 +207,7 @@ apply (Rint_le_compat (sin_n (S (2 * n))) (sin_n (2 * n)) 0 (PI/2)).
   rewrite <- tech_pow_Rmult.
   apply Rmult_le_compat_r.
     apply pow_le.
-    apply sin_ge_0; intuition; lra.
+    apply sin_ge_0; auto with *; lra.
     pose proof (SIN_bound u); intuition.
 
 apply Wallis_odd.
@@ -227,7 +227,7 @@ apply (Rint_le_compat (sin_n (2 * (S n))) (sin_n (S (2 * n))) 0 (PI/2)).
   rewrite <- tech_pow_Rmult.
   apply Rmult_le_compat_r.
     apply pow_le.
-    apply sin_ge_0; intuition; lra.
+    apply sin_ge_0; auto with *; lra.
     pose proof (SIN_bound u); intuition.
 
 apply Wallis_even.
@@ -342,10 +342,10 @@ destruct Heq as (m, Heq).
 destruct (Hseq eps Heps) as (N, Hseq2).
 exists (max N m).
 intros n Hn. 
-assert (Hm : (n >= m)%nat). apply Nat.le_trans with (max N m) ; intuition auto with *.
+assert (Hm : (n >= m)%nat). apply Nat.le_trans with (max N m) ; auto with *.
 unfold R_dist in *.
-rewrite <- (Heq n) ; intuition;
-try (apply Hseq2; intuition; apply Nat.le_trans with (max N m) ; intuition auto with *).
+rewrite <- (Heq n) ; auto with *;
+try (apply Hseq2; intuition; apply Nat.le_trans with (max N m) ; auto with *).
 Qed.
 
 Lemma sqrt_id : forall n : nat, (INR n <> 0)%R -> sqrt (2 * n) / (2 * n) = /sqrt (2 * n).
@@ -354,8 +354,8 @@ intros n H1.
 rewrite <- (sqrt_sqrt (2 * n)) at 2.
 field.
 intro H. apply H1. apply Rmult_eq_reg_l with 2. rewrite Rmult_0_r. apply sqrt_eq_0 ; intuition.
-apply Rmult_le_pos ; intuition auto with *. intro ; lra.
-apply Rmult_le_pos ; intuition auto with *.
+apply Rmult_le_pos ; auto with *. intro ; lra.
+apply Rmult_le_pos ; auto with *.
 Qed.
 
 Lemma Rseq_equiv_eq : forall Un Vn, 
@@ -368,7 +368,7 @@ unfold Rseq_constant, Rseq_minus, Rseq_plus.
 rewrite (Heq n).
 ring_simplify (Vn n - Vn n).
 rewrite Rabs_R0. apply Rmult_le_pos.
-intuition auto with *.
+auto with *.
 apply Rabs_pos.
 assumption.
 Qed.
@@ -386,11 +386,11 @@ unfold Rseq_constant. rewrite Rabs_R1. rewrite Rmult_1_r.
 apply Rle_trans with (Rabs (Un n)).
 apply sqrt_var_maj.
 unfold R_dist in *. left.
-assert (HN : (n >= N1)%nat). apply Nat.le_trans with (Nat.max N N1) ; intuition auto with *.
+assert (HN : (n >= N1)%nat). apply Nat.le_trans with (Nat.max N N1) ; auto with *.
 generalize (HUn1 n HN) ; intros HU1.
 rewrite Rminus_0_r in HU1. assumption.
 left. 
-assert (HN : (n >= N)%nat). apply Nat.le_trans with (Nat.max N N1) ; intuition auto with *.
+assert (HN : (n >= N)%nat). apply Nat.le_trans with (Nat.max N N1) ; auto with *.
 generalize (HUn n HN) ; intros HU1.
 unfold R_dist in HU1.
 rewrite Rminus_0_r in HU1. assumption.
@@ -454,7 +454,7 @@ Qed.
 
 Lemma Rseq_cv_inv_INR_0_1 : Rseq_cv (fun n => - / (2 * INR n + 1))%R 0%R.
 Proof.
-replace 0 with (-0)%R by intuition auto with *. apply Rseq_cv_opp_compat.
+replace 0 with (-0)%R by auto with *. apply Rseq_cv_opp_compat.
 generalize RinvN_cv. intros useful.
 intros eps Heps;
 destruct (Rseq_cv_inv_INR eps Heps) as (N, Hun).
@@ -463,16 +463,16 @@ generalize (Hun n Hn) ; intros Hun1.
 apply Rle_lt_trans with (/INR (n + 1))%R.
  unfold R_dist. rewrite Rminus_0_r. rewrite Rabs_pos_eq.
   apply Rle_Rinv.
-   generalize (pos_INR n) ; intros ; rewrite plus_INR ; intuition auto with *.
+   generalize (pos_INR n) ; intros ; rewrite plus_INR ; auto with *.
    generalize (pos_INR n) ; intros ; lra.
    rewrite plus_INR. simpl. apply Rplus_le_compat_r. replace (INR n)%R with ((INR n ) * 1)%R by ring. rewrite Rmult_comm. apply Rmult_le_compat.
-    intuition auto with *.
+    auto with *.
     apply pos_INR.
-    intuition auto with *.
-    intuition auto with *.
+    auto with *.
+    auto with *.
  left. apply Rinv_0_lt_compat. generalize (pos_INR n) ; intros ; lra.
 unfold R_dist in Hun1. rewrite Rminus_0_r in Hun1. rewrite Rabs_right in Hun1. apply Hun1.
-left. apply Rgt_lt. apply Rinv_0_lt_compat. intuition auto with *.
+left. apply Rgt_lt. apply Rinv_0_lt_compat. auto with *.
 Qed.
 
 Lemma Rseq_equiv_continuity : forall Un Vn l f, continuity_pt f l -> 
@@ -545,7 +545,7 @@ apply Rmult_integral_contrapositive ; split ;
 
 exists (S O). intros n Hn; unfold Rseq_mult, Rseq_constant.
 
-assert(H : {m | n = S m}). exists (pred n). intuition auto with *.
+assert(H : {m | n = S m}). exists (pred n). auto with *.
 destruct H as (m, Subst).
 rewrite Subst.
 
@@ -555,14 +555,14 @@ apply Rmult_integral_contrapositive ; split ;
 [ apply Rmult_integral_contrapositive ; split ; 
 [ (apply pow_nonzero ; unfold Rdiv ; apply Rmult_integral_contrapositive ; split ;
 [ apply Rmult_integral_contrapositive ; split ; 
-[ (intro ; lra) | (apply not_0_INR ; intuition) ] | (apply Rinv_neq_0_compat ; generalize (exp_pos 1) ; intros ; intro ; lra)])
-| (intro H ; apply sqrt_eq_0 in H ; [ (apply Rmult_integral in H ; destruct H as [H|H] ; [ lra | (generalize H ; apply not_0_INR ; intuition) ])
-| apply Rmult_le_pos ; intuition ]) ]
+[ (intro ; lra) | (apply not_0_INR ; auto with *) ] | (apply Rinv_neq_0_compat ; generalize (exp_pos 1) ; intros ; intro ; lra)])
+| (intro H ; apply sqrt_eq_0 in H ; [ (apply Rmult_integral in H ; destruct H as [H|H] ; [ lra | (generalize H ; apply not_0_INR ; auto with *) ])
+| apply Rmult_le_pos ; auto with * ]) ]
 | apply Hneq ] ] | apply Rmult_integral_contrapositive ; split ; 
 [ apply Rmult_integral_contrapositive ; split ;
 [ (apply pow_nonzero ; unfold Rdiv ; apply Rmult_integral_contrapositive ; split ;
-[ apply not_0_INR ; intuition | (apply Rinv_neq_0_compat ; generalize (exp_pos 1) ; intros ; intro ; lra) ])
-| (intro H ; apply sqrt_eq_0 in H ; [ (apply not_0_INR in H ; intuition )
+[ apply not_0_INR ; auto with * | (apply Rinv_neq_0_compat ; generalize (exp_pos 1) ; intros ; intro ; lra) ])
+| (intro H ; apply sqrt_eq_0 in H ; [ (apply not_0_INR in H ; auto with * )
 | apply pos_INR ])
 ] | apply Hneq ] ]; auto with *.
 
@@ -586,13 +586,13 @@ apply Rseq_cv_eq_compat1 with
 (fun n:nat => (sqrt (2 * n) / sqrt (S (2 * n))) * (Rsqr l / PI * exp 1) * ((2 * n) / S (2 * n)) ^ (S (2 * n)) * /2)%R.
 exists (S O). intros n Hn.
 (* need to have n <> 0 *)
-assert(H : {m | n = S m}). exists (pred n). intuition auto with *.
+assert(H : {m | n = S m}). exists (pred n). auto with *.
 destruct H as (m, Subst).
 (* Solving the simplification equation *)
 unfold Rseq_constant.
 unfold Rdiv.
 ring_simplify.
-replace (sqrt n ^ 4) with (n ^ 2) by (rewrite <- (sqrt_sqrt n) at 1 ; [ring | intuition auto with *]).
+replace (sqrt n ^ 4) with (n ^ 2) by (rewrite <- (sqrt_sqrt n) at 1 ; [ring | auto with *]).
 repeat rewrite Rpow_mult_distr.
 repeat rewrite <- pow_mult.
 repeat rewrite Rinv_mult.
@@ -607,7 +607,7 @@ repeat rewrite <- pow_inv. rewrite Rinv_inv.
 rewrite <- tech_pow_Rmult with (exp 1) (2 * n)%nat.
 rewrite (pow_inv (exp 1) _).
 do 2 rewrite <- tech_pow_Rmult.
-replace (/sqrt (2 * n))%R with (sqrt (2 * n) / (2 * n))%R by (apply sqrt_id ; inversion Hn ; [intuition auto with * | apply not_0_INR ; intuition auto with *]).
+replace (/sqrt (2 * n))%R with (sqrt (2 * n) / (2 * n))%R by (apply sqrt_id ; inversion Hn ; [auto with * | apply not_0_INR ; auto with *]).
 unfold Rsqr. unfold Rdiv.
 repeat rewrite pow_inv. field.
 
@@ -616,11 +616,11 @@ repeat rewrite pow_inv. field.
 {
 split. assumption.
 split. intro H. apply sqrt_eq_0 in H. apply not_0_INR in H. assumption.
-intuition auto with *.
-intuition auto with *.
-split. apply pow_nonzero. apply not_0_INR. intuition auto with *.
-split. apply not_0_INR. intuition auto with *.
-split. apply pow_nonzero. apply not_0_INR. intuition auto with *.
+auto with *.
+auto with *.
+split. apply pow_nonzero. apply not_0_INR. auto with *.
+split. apply not_0_INR. auto with *.
+split. apply pow_nonzero. apply not_0_INR. auto with *.
 split. apply pow_nonzero. intro. lra.
 split. apply PI_neq0.
 apply pow_nonzero. intro. generalize (exp_pos 1) ; intros ; lra.
@@ -643,7 +643,7 @@ eapply Rseq_equiv_cv_compat.
   exists N.
   intros n HN. generalize (DL n HN). intros DL1.
   unfold Rseq_constant, Rseq_plus, Rseq_minus, Rseq_mult, Rseq_inv, Un in *.
-  rewrite <-sqrt_div ; [ | (apply Rmult_le_pos ; intuition auto with *) | intuition auto with * ].
+  rewrite <-sqrt_div ; [ | (apply Rmult_le_pos ; auto with *) | auto with * ].
   rewrite S_INR. rewrite mult_INR. do 2 rewrite S_INR.
   replace (2 * n)%R with ((2 * n + 1) - 1)%R by ring. rewrite Rplus_0_l.
   unfold Rminus. rewrite Rinv_plus.
@@ -665,7 +665,7 @@ eapply Rseq_equiv_cv_compat.
    apply Rseq_cv_eq_compat with (-R1).
    intros n. unfold Rseq_constant, Rseq_minus, Rseq_plus, Rseq_opp.
    field. intros H1 ; generalize (pos_INR n) ; intros ; lra.
-   change (-1)%R with (-(1%R))%R. intuition auto with *.
+   change (-1)%R with (-(1%R))%R. auto with *.
    eapply Rseq_equiv_cv_compat.
      2: reflexivity.
     symmetry; instantiate (1 := (fun n => (2 * INR n + 1) * - / (2 * INR n + 1))%R).
@@ -676,7 +676,7 @@ eapply Rseq_equiv_cv_compat.
     apply Rseq_cv_eq_compat with (-R1).
     unfold Rseq_opp, Rseq_constant, Rseq_minus.
     intros n. field. generalize (pos_INR n) ; intuition ; lra.
-    change (-1)%R with (-(1%R))%R. intuition auto with *.
+    change (-1)%R with (-(1%R))%R. auto with *.
  apply Rseq_equiv_eq.
  exists 1%nat.
  intros n Hn.
@@ -689,9 +689,9 @@ eapply Rseq_equiv_cv_compat.
    rewrite (Rplus_comm (- / (2 * n + 1)) _). reflexivity.
    generalize (pos_INR n) ; intuition ; lra.
    generalize (pos_INR n) ; intuition ; lra.
-   unfold Rdiv. apply Rmult_lt_0_compat. apply Rmult_lt_0_compat ; intuition auto with *.
+   unfold Rdiv. apply Rmult_lt_0_compat. apply Rmult_lt_0_compat ; auto with *.
    apply Rinv_0_lt_compat.
-   rewrite S_INR. generalize (pos_INR n) ; intuition auto with * ; lra.
+   rewrite S_INR. generalize (pos_INR n) ; auto with * ; lra.
 apply Rseq_cv_eq_compat with (Rsqr l / (2 * PI)).
 intro. unfold Rseq_mult, Rseq_plus, Rseq_constant, Rseq_div, Rseq_inv.
 field. split. 

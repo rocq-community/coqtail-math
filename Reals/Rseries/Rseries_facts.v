@@ -546,7 +546,7 @@ pose (Un1 := fun k => Un (k - S n)%nat).
 pose (Wn := (Un1 - Vn)%Rseq).
 destruct Hlt as [k [Hnk Hlt]].
 exists Wn. exists k.
-split. 
+split.
  unfold Wn. unfold Rseq_minus, Un1; intuition auto with real.
  apply Rge_minus. apply Rle_ge. apply Hle. assumption.
 

@@ -1230,7 +1230,7 @@ pose (sum_f_R0 (tg_alt Un)) as Sn; fold Sn.
 
 assert (Heu : forall p, Sn (2 * p)%nat <= Un O).
 induction p.
- compute; intuition auto with *.
+ compute; auto with *.
  eapply Rle_trans.
   apply CV_ALT_step1; assumption.
   assumption.
@@ -1510,7 +1510,7 @@ eapply Rseq_cv_0_pos_maj_compat.
  apply (Rmult_le_compat_l k _ _ kpos).
  unfold inverse_mean, Rdiv.
  rewrite Rmult_comm.
- intuition auto with *.
+ auto with *.
 Qed.
 
 Lemma bound1'_cv : Rseq_cv bound1' 0.

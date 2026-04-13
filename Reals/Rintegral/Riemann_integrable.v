@@ -432,7 +432,7 @@ Proof.
   apply Rabs_pos. 
   rewrite RiemannInt_bound_exchange_1.
   rewrite Rabs_Ropp.
-  apply RiemannInt_le_Rabs. left. intuition auto with *.
+  apply RiemannInt_le_Rabs. left. auto with *.
    apply Rle_lt_trans with
     (RiemannInt (Riemann_integrable_constant (x + h) x (eps / 2)) * Rabs (/ h)).
   do 2 rewrite <- (Rmult_comm (Rabs (/ h))); apply Rmult_le_compat_l.

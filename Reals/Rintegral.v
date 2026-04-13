@@ -88,7 +88,7 @@ Proof.
  exists pr2;
 assert(RiemannInt pr2 = - RiemannInt pr) as Hrew;
   [ apply RiemannInt_P8 | rewrite Hrew];
-rewrite H; intuition auto with *.
+rewrite H; auto with *.
 Qed.
 
 Lemma Rint_reverse_2 : forall f a b x, Rint f a b  x -> Rint f b a (-x).
@@ -599,8 +599,8 @@ pose proof prolongement_C1_C1 f d a b Hab Hder Hcont as [g [Heq Hdeq]].
 apply Rint_eq_compat with (derive g (diff0 g)).
   rewrite Rmin_def, Rmax_def; assumption.
 exists (RiemannInt_P32 g a b).
-rewrite RiemannInt_P33; intuition auto with *.
-do 2 (rewrite Heq; intuition auto with *).
+rewrite RiemannInt_P33; auto with *.
+do 2 (rewrite Heq; auto with *).
 Qed.
 
 Lemma Rint_derive2 : forall f a b d,

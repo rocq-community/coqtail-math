@@ -46,7 +46,7 @@ Proof.
 intros a n.
 rewrite tech11 with (fun i => a (S i) - a i) (fun i => a (S i)) a _; [|reflexivity].
 destruct n; [reflexivity|].
-rewrite tech2 with a O (S n); [|intuition auto with *].
+rewrite tech2 with a O (S n); [|auto with *].
 rewrite tech5.
 simpl (sum_f_R0 a 0).
 replace (S n - 1)%nat with n by (simpl; symmetry; apply Nat.sub_0_r).
@@ -60,7 +60,7 @@ Proof.
 intros a n.
 rewrite tech11 with (fun i => a i - a (S i)) a (fun i => a (S i)) _; [|reflexivity].
 destruct n; [reflexivity|].
-rewrite tech2 with a O (S n); [|intuition auto with *].
+rewrite tech2 with a O (S n); [|auto with *].
 rewrite tech5.
 simpl (sum_f_R0 a 0).
 replace (S n - 1)%nat with n by (simpl; symmetry; apply Nat.sub_0_r).
@@ -121,7 +121,7 @@ rewrite <- Rmult_1_r.
 replace 1 with (INR (S n) - (INR n)).
  assert (pr:Riemann_integrable (fct_cte (f (INR n) - f (INR (S n)))) (INR n) (INR (S n))) by apply RiemannInt_P14.
  rewrite <- RiemannInt_P15 with _ _ _ pr.
- apply RiemannInt_P19; [intuition auto with *|].
+ apply RiemannInt_P19; [auto with *|].
  unfold fct_cte.
  intros x [xn xsn].
  apply Rminus_le_compat_r.
@@ -133,7 +133,7 @@ replace 1 with (INR (S n) - (INR n)).
  apply (Rlt_le _ _ xsn).
  
  rewrite <- minus_INR by intuition.
- replace (S n - n)%nat with 1%nat by intuition auto with *.
+ replace (S n - n)%nat with 1%nat by auto with *.
  reflexivity.
 Qed.
 
@@ -146,7 +146,7 @@ apply Rser_pos_bound_cv with (f 0).
  replace (f n * (S n -n)) with (f n) in int by (rewrite S_INR; ring).
  rewrite <- int.
  apply Rle_minus'.
- apply RiemannInt_P19; [intuition auto with *|].
+ apply RiemannInt_P19; [auto with *|].
  intros x [xn snx].
  assert(Hcond : 0 <= (INR n) <= x).
    split.
@@ -162,14 +162,14 @@ apply Rser_pos_bound_cv with (f 0).
   destruct (Rint_constant (f i) i (S i)) as [ pr int]. 
    replace (f i * (S i -i)) with (f i) in int by (rewrite S_INR; ring).
   rewrite <- int.
-  rewrite <- RiemannInt_minus with _ _ _ _ _ _ (Rser_RiemannInt_link_general_term_integrable i); [|intuition auto with *].
+  rewrite <- RiemannInt_minus with _ _ _ _ _ _ (Rser_RiemannInt_link_general_term_integrable i); [|auto with *].
   rewrite RiemannInt_P15.
   replace (INR (S i) - INR i) with 1.
    rewrite Rmult_1_r.
    apply (Rser_RiemannInt_link_general_term_bound i).
    
    rewrite <- minus_INR by intuition.
-   replace (S i - i)%nat with 1%nat by intuition auto with *.
+   replace (S i - i)%nat with 1%nat by auto with *.
    reflexivity.
   
   rewrite Telescoping_series_opp.
@@ -187,7 +187,7 @@ Proof.
 assert (pr : forall n : nat, Riemann_integrable f 0 n).
   intro n.
   apply continuity_implies_RiemannInt.
-  intuition auto with *.
+  auto with *.
   intros x [Hx _]; apply (Hcont x Hx).
 exists pr.
 intro Hdiv.

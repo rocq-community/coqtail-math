@@ -103,13 +103,13 @@ intros.
 unfold Rdiv. replace 0%R with (0 * /2)%R by field. apply Rmult_le_compat_r.
 lra. apply Rle_Rminus.
 apply Rle_trans with (Rabs a).
-split_Rabs. lra. intuition auto with *.
+split_Rabs. lra. auto with *.
 apply Rsqr_incr_0_var. rewrite Rsqr_sqrt.
 rewrite <- Rsqr_abs. replace (Rsqr a) with (a * a)%R by intuition.
-replace (a * a)%R with ((a * a) + 0)%R by intuition auto with *.
+replace (a * a)%R with ((a * a) + 0)%R by auto with *.
 rewrite Rplus_assoc. apply Rplus_le_compat_l. 
-replace (0 + b * b)%R with (Rsqr b) by intuition auto with *.
-intuition auto with *. apply (Cnorm_sqr_pos a b). apply sqrt_positivity.
+replace (0 + b * b)%R with (Rsqr b) by auto with *.
+auto with *. apply (Cnorm_sqr_pos a b). apply sqrt_positivity.
 apply (Cnorm_sqr_pos a b).
 Qed.
 
@@ -117,23 +117,23 @@ Lemma Croot_sqrt_pos_plus : forall a b : R, 0 <= (sqrt (a * a + b * b) + a) / 2.
 Proof.
 intros.
 unfold Rdiv. replace 0%R with (0 * /2)%R by field. apply Rmult_le_compat_r.
-lra. replace a with (--a)%R by intuition auto with *. apply Rle_Rminus.
+lra. replace a with (--a)%R by auto with *. apply Rle_Rminus.
 apply Rle_trans with (Rabs a).
 split_Rabs. lra. intuition. lra.
-replace (--a)%R with a by intuition auto with *.
+replace (--a)%R with a by auto with *.
 apply Rsqr_incr_0_var. rewrite Rsqr_sqrt.
 rewrite <- Rsqr_abs. replace (Rsqr a) with (a * a)%R by intuition. 
-replace (a * a)%R with ((a * a) + 0)%R by intuition auto with *.
+replace (a * a)%R with ((a * a) + 0)%R by auto with *.
 rewrite Rplus_assoc. apply Rplus_le_compat_l. 
-replace (0 + b * b)%R with (Rsqr b) by intuition auto with *.
-intuition auto with *. apply (Cnorm_sqr_pos a b). apply sqrt_positivity.
+replace (0 + b * b)%R with (Rsqr b) by auto with *.
+auto with *. apply (Cnorm_sqr_pos a b). apply sqrt_positivity.
 apply (Cnorm_sqr_pos a b).
 Qed.
 
 Lemma sqrt_square2 : forall a : R, (a >= 0 -> (sqrt a) ^ 2 = a)%R.
 Proof.
 intros.
-simpl. rewrite Rmult_1_r. apply sqrt_sqrt. intuition auto with *.
+simpl. rewrite Rmult_1_r. apply sqrt_sqrt. auto with *.
 Qed.
 (* end hide *)
 
@@ -147,8 +147,8 @@ exists (sqrt ( (sqrt ( a * a + b * b) + a)/2),
 - sqrt ( (sqrt ( a * a + b * b) - a)/2))%R.
 CusingR_simpl ; ring_simplify.
 (* real part *)
-repeat rewrite sqrt_square2. field. destruct (Croot_sqrt_pos a b); intuition auto with *.
-destruct (Croot_sqrt_pos_plus a b); intuition auto with *.
+repeat rewrite sqrt_square2. field. destruct (Croot_sqrt_pos a b); auto with *.
+destruct (Croot_sqrt_pos_plus a b); auto with *.
 (* imaginary part *)
 rewrite Rmult_assoc. rewrite <- sqrt_mult.
 field_simplify ((sqrt (a * a + b * b) + a) / 2 * ((sqrt (a * a + b * b) - a) / 2))%R.
@@ -158,7 +158,7 @@ replace (sqrt (/2 * /2))%R with (/2)%R by (rewrite sqrt_square ; try reflexivity
 replace (b ^ 2)%R with (-b * -b)%R by ring. rewrite sqrt_square. 
 field. lra. 
 replace (b ^ 2)%R with (Rsqr b) by (simpl ; rewrite Rmult_1_r ; intuition).
-intuition auto with *. lra. apply Rle_ge . apply (Cnorm_sqr_pos a b).
+auto with *. lra. apply Rle_ge . apply (Cnorm_sqr_pos a b).
 apply Croot_sqrt_pos_plus. apply Croot_sqrt_pos.
 (* case b >= 0 *)
 exists (sqrt ( (sqrt ( a * a + b * b) + a)/2),
@@ -179,7 +179,7 @@ replace (sqrt (/2 * /2))%R with (/2)%R by (rewrite sqrt_square ; try reflexivity
 replace (b ^ 2)%R with (b * b)%R by ring. rewrite sqrt_square. 
 field. lra.  
 replace (b ^ 2)%R with (Rsqr b) by (simpl ; rewrite Rmult_1_r ; intuition).
-intuition auto with *. lra. apply Rle_ge . apply (Cnorm_sqr_pos a b).
+auto with *. lra. apply Rle_ge . apply (Cnorm_sqr_pos a b).
 apply Croot_sqrt_pos_plus. apply Croot_sqrt_pos.
 Qed.
 
@@ -278,7 +278,7 @@ symmetry in H3 ; symmetry in H4 ;
 apply Cmult_integral in H3 ; apply Cmult_integral in H4 ;
 destruct H3 as [H3|H3] ; destruct H4 as [H4|H4] ;
 rewrite Cadd_comm in * ; apply Cminus_diag_uniq in H3 ;
-apply Cminus_diag_uniq in H4 ; subst ; ring_simpl ; intuition auto with *.
+apply Cminus_diag_uniq in H4 ; subst ; ring_simpl ; auto with *.
 Qed.
 
 
@@ -524,11 +524,11 @@ intro Hpoly.
 destruct (total_order_T delta 0) as [[H|H]|H].
 assumption.
 destruct (Cfpol_root a b c delta).
-assumption. intuition auto with *. assumption. 
+assumption. auto with *. assumption. 
 destruct (Hpoly x). ring_simplify. symmetry. 
 ring_simplify in H0. assumption.
 destruct (Cfpol_root a b c delta).
-assumption. intuition auto with *. assumption. 
+assumption. auto with *. assumption. 
 destruct (Hpoly x). ring_simplify. symmetry. 
 ring_simplify in H0. assumption.
 Qed.
@@ -539,10 +539,10 @@ a <> 0%R -> a > 0%R -> (forall x, 0 <= a*x*x+b*x+c) -> b^2 - 4*a*c <=0.
 Proof.
 intros a b c Ha Haa Hpoly.
 pose ( b^2 - 4*a*c)%R as delta.
-destruct (total_order_T delta 0) as [[H|H]|H]; intuition auto with *.
+destruct (total_order_T delta 0) as [[H|H]|H]; auto with *.
 destruct (Cfpol_root a b c delta).
 reflexivity.
-intuition auto with *.
+auto with *.
 assumption.
 assert (H1 : (exists x1, exists x2, forall x,
 a * x ^ 2 + b * x + c =  a * (x + x1) * (x + x2))%R).
@@ -580,7 +580,7 @@ apply Rmult_eq_reg_l in H30.
 apply H10. symmetry in H30. auto with *.
 apply Rinv_neq_0_compat.
 discrR.
-intuition auto with *.
+auto with *.
 assert ( 0 <= a * (- (x1 + x2) / 2 + x1) * (- (x1 + x2) / 2 + x2)).
 rewrite <- H1. replace ( (- (x1 + x2) / 2) ^ 2)%R with ((- (x1 + x2) / 2) * (- (x1 + x2) / 2) )%R by ring.
 rewrite <- Rmult_assoc. apply Hpoly.
@@ -598,7 +598,7 @@ Proof.
 intros n r Hn Hr.
 induction Hn.
 simpl. ring_simplify. lra.
-simpl. rewrite Rmult_plus_distr_r. replace 0%R with (0 + 0)%R by intuition auto with *.
+simpl. rewrite Rmult_plus_distr_r. replace 0%R with (0 + 0)%R by auto with *.
 unfold Rminus. rewrite Rplus_assoc. apply Rplus_lt_compat.
 apply Rmult_gt_0_compat.
 assumption.
@@ -617,18 +617,18 @@ destruct (total_order_T r 0) as [[order|order]|order].
 edestruct Rge_not_lt; eauto.
 exists 0. rewrite order.
 rewrite pow_ne_zero. reflexivity.
-intuition auto with *.
+auto with *.
 assert (Hsup0 : r+1 > 0) by lra.
 assert (Hpos : forall n, (n > 0)%nat -> (r + 1) ^ n - r > 0).
  intros n1 Hn1. apply ast_fun_pos. assumption. assumption.
 assert (Hneg : 0 ^ n - r < 0). rewrite pow_ne_zero. lra.
- intuition auto with *.
+ auto with *.
 
 generalize (IVT (fun x => x ^ n - r) 0 (r + 1) Cont_pow Hsup0 Hneg)%R.
 
 intros H. destruct H as (x, H).
 apply Hpos. assumption.
-exists  x. intuition auto with *.
+exists x. intuition auto with *.
 Qed.
 
 (** ** Every complex has a n root *) 
@@ -651,5 +651,5 @@ rewrite IRC_pow_compat. rewrite Hreal. rewrite <- Cexp_mult.
 field_simplify (INC n * ((0 +i  theta) / INC n))%C.
 unfold Cdiv. try rewrite Cinv_1. try rewrite Cmult_1_r.
 apply Hpol. 
-apply not_0_INC. intuition auto with *.
+apply not_0_INC. auto with *.
 Qed.

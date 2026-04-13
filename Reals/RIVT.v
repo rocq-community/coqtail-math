@@ -143,7 +143,7 @@ intros f x y l Hf Hxy Hl ;
   assumption.
   clear - Hl; destruct Hl ; split ; unfold minus_fct ; lra.
  exists z ; split ; [assumption |].
-  clear - Hz ; unfold minus_fct in * ; intuition auto with *.
+  clear - Hz ; unfold minus_fct in * ; auto with *.
 Qed. 
 
 Lemma IVT_interval : forall (f : R -> R) (x y : R) l,

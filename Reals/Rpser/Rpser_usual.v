@@ -256,8 +256,8 @@ assert (t : (1 > 0)%nat) by constructor ;
  apply Rle_trans with (R_dist ((/ Rseq_shift (Rseq_poly 1))%Rseq (N + n)%nat) 0).
  right ; unfold R_dist, Rseq_shift, Rseq_poly, pow ; apply Rabs_eq_compat ;
  rewrite Rminus_0_r, <- (Rmult_1_r (INR (S (N + n)))) ; reflexivity.
- left ; apply HN ; intuition auto with *.
- unfold M ; rewrite Rinv_inv; intuition auto with *.
+ left ; apply HN ; auto with *.
+ unfold M ; rewrite Rinv_inv; auto with *.
 Qed.
 
 Lemma cos_infinite_cv_radius : infinite_cv_radius cos_seq.
@@ -298,7 +298,7 @@ intro n ; unfold exp_seq, An_deriv, Rseq_shift, Rseq_mult.
  replace (fact (S n))%nat with ((S n) * fact n)%nat by reflexivity.
  rewrite mult_INR, Rinv_mult, <- Rmult_assoc, Rinv_r, Rmult_1_l ;
  [reflexivity |] ; replace 0 with (INR O) by reflexivity ; apply not_INR ;
- try apply fact_neq_0 ; intuition auto with *.
+ try apply fact_neq_0 ; auto with *.
 Qed.
 
 Lemma Deriv_cos_seq_simpl : (An_deriv cos_seq == - sin_seq)%Rseq.
@@ -312,7 +312,7 @@ intro n ; unfold cos_seq, sin_seq, An_deriv, Rseq_shift, Rseq_mult,
  rewrite Rmult_comm ; unfold Rdiv ; rewrite Rmult_assoc.
  replace (/ INR (fact (S n)) * INR (S n)) with (/ INR (fact n)).
  simpl ; ring.
- rewrite fact_simpl, mult_INR ; field ; split ; apply not_0_INR ; [apply fact_neq_0 | intuition auto with *].
+ rewrite fact_simpl, mult_INR ; field ; split ; apply not_0_INR ; [apply fact_neq_0 | auto with *].
  apply False_ind ; lia.
 Qed.
 
@@ -326,7 +326,7 @@ intro n ; unfold cos_seq, sin_seq, An_deriv, Rseq_shift, Rseq_mult, Rseq_zip,
  rewrite Rmult_comm ; unfold Rdiv ; rewrite Rmult_assoc.
  replace (/ INR (fact (S n)) * INR (S n)) with (/ INR (fact n)).
  simpl ; ring.
- rewrite fact_simpl, mult_INR ; field ; split ; apply not_0_INR ; [apply fact_neq_0 | intuition auto with *].
+ rewrite fact_simpl, mult_INR ; field ; split ; apply not_0_INR ; [apply fact_neq_0 | auto with *].
  ring.
  apply False_ind ; lia.
 Qed.

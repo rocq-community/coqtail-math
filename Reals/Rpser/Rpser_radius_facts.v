@@ -99,7 +99,7 @@ intros An r rho r' r'_bd.
  rewrite Hi ; unfold gt_abs_pser, gt_pser, An_deriv, Rseq_shift, Rseq_mult, Rseq_abs.
  destruct i.
  simpl ; rewrite Rmult_1_l ; rewrite Rmult_1_r ; apply Rle_refl.
- rewrite r'_lb ; rewrite pow_i ; [| intuition auto with *] ; repeat (rewrite Rmult_0_r) ;
+ rewrite r'_lb ; rewrite pow_i ; [| auto with *] ; repeat (rewrite Rmult_0_r) ;
  rewrite Rabs_R0 ; apply Rabs_pos.
  assert (Rabsr'_pos : 0 < Rabs r') by (apply Rabs_pos_lt ; assumption). 
  destruct (Rpser_cv_speed_pow_id (r' / r) x_lt_1 (Rabs r') Rabsr'_pos) as (N, HN).
@@ -141,7 +141,7 @@ intros An r rho r' r'_bd.
  apply Rabs_pos.
  apply Rle_trans with (R_dist (INR (S i) * (r' / r) ^ S i) 0) ;
  [right ; unfold R_dist ; rewrite Rminus_0_r ; reflexivity |] ; left ; apply HN ;
- intuition auto with *.
+ auto with *.
  rewrite <- Rabs_mult ; rewrite Rinv_l ; [| assumption] ; rewrite Rabs_R1 ; right ; trivial.
 Qed.
 
@@ -178,17 +178,17 @@ intros [H_ub H_lub] ; split.
  apply Rabs_pos.
  rewrite middle_comm ; apply Rlt_le_trans with (Rabs r).
  eapply middle_is_in_the_middle.
- apply Rle_lt_trans with r' ; [right ; apply Rabs_right ; intuition auto with * |].
+ apply Rle_lt_trans with r' ; [right ; apply Rabs_right ; auto with * |].
  apply Rlt_le_trans with r ; [assumption | right ; symmetry ; apply Rabs_right ;
  left ; apply Rle_lt_trans with r' ; assumption].
  right ; apply Rabs_right ; left ; apply Rle_lt_trans with r' ; assumption.
  apply Rle_lt_trans with r'.
- right ; apply Rabs_right ; intuition auto with *.
+ right ; apply Rabs_right ; auto with *.
  rewrite Rabs_right.
  apply Rle_lt_trans with (Rabs r') ; [right ; symmetry ;apply Rabs_right ;
- intuition auto with * | rewrite middle_comm].
+ auto with * | rewrite middle_comm].
  eapply middle_is_in_the_middle.
- apply Rle_lt_trans with r' ; [right ; apply Rabs_right ; intuition auto with * |].
+ apply Rle_lt_trans with r' ; [right ; apply Rabs_right ; auto with * |].
  apply Rlt_le_trans with r ; [assumption | right ; symmetry ; apply Rabs_right ;
  left ; apply Rle_lt_trans with r' ; assumption].
  left ; apply middle_lt_le_pos_lt ;  [apply Rabs_pos_lt ; apply Rgt_not_eq ;

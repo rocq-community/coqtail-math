@@ -66,7 +66,7 @@ intro n ; unfold exp_seq, An_deriv, Cseq_shift, Cseq_mult.
  replace (fact (S n))%nat with ((S n) * fact n)%nat by reflexivity.
  rewrite mult_INC, Cinv_mult_distr, <- Cmult_assoc, Cinv_r, Cmult_1_l ;
  [reflexivity | | |] ; replace C0 with (INC O) by reflexivity ; apply not_INC ;
- try apply fact_neq_0 ; intuition auto with *.
+ try apply fact_neq_0 ; auto with *.
 Qed.
 
 (** * This power serie has a radius of convergence that is infinite *)
@@ -90,8 +90,8 @@ assert (t : (1 > 0)%nat) by constructor ;
  apply Rle_trans with (R_dist ((/ Rseq_shift (Rseq_poly 1))%Rseq (N + n)%nat) 0).
  right ; unfold R_dist, Rseq_shift, Rseq_poly, pow ; apply Rabs_eq_compat ;
  rewrite Rminus_0_r, <- (Rmult_1_r (INR (S (N + n)))) ; reflexivity.
- left ; apply HN ; intuition auto with *.
- apply not_0_INR ; intuition auto with *.
+ left ; apply HN ; auto with *.
+ apply not_0_INR ; auto with *.
 
 unfold M ; rewrite Rinv_inv ; auto with *.
 Qed.
@@ -155,7 +155,7 @@ Lemma Cre_Cpow_2 : forall (a : R) (n : nat), Cre ((0 +i a) ^ (2 * n)) = ((-1) ^ 
 Proof.
 intros a n ; induction n.
  simpl ; ring.
- replace (2 * S n)%nat with (S (S (2 * n))) by intuition auto with *.
+ replace (2 * S n)%nat with (S (S (2 * n))) by auto with *.
  do 2 rewrite Cpow_S, Cre_mul ; rewrite IHn.
  rewrite Cim_mul.
  replace (Cre (0 +i a)) with R0 by reflexivity.
@@ -166,7 +166,7 @@ Lemma Cim_Cpow_2 : forall (a : R) (n : nat), Cim ((0 +i a) ^ (2 * n)) = R0.
 Proof.
 intros a n ; induction n.
  simpl ; ring.
- replace (2 * S n)%nat with (S (S (2 * n))) by intuition auto with *.
+ replace (2 * S n)%nat with (S (S (2 * n))) by auto with *.
  do 2 rewrite Cpow_S, Cim_mul ; rewrite IHn.
  rewrite Cre_mul.
  replace (Cre (0 +i a)) with R0 by reflexivity.
@@ -177,7 +177,7 @@ Lemma Cre_Cpow_S2 : forall (a : R) (p : nat), Cre ((0 +i  a) ^ S (2 * p)) = R0.
 Proof.
 intros a n ; induction n.
  simpl ; ring.
- replace (2 * S n)%nat with (S (S (2 * n))) by intuition auto with *.
+ replace (2 * S n)%nat with (S (S (2 * n))) by auto with *.
  do 2 rewrite Cpow_S, Cre_mul ; rewrite IHn.
  rewrite Cim_mul.
  replace (Cre (0 +i a)) with R0 by reflexivity.
@@ -188,7 +188,7 @@ Lemma Cim_Cpow_S2 : forall (a : R) (n : nat), Cim ((0 +i a) ^ (S (2 * n))) = ((-
 Proof.
 intros a n ; induction n.
  simpl ; ring.
- replace (2 * S n)%nat with (S (S (2 * n))) by intuition auto with *.
+ replace (2 * S n)%nat with (S (S (2 * n))) by auto with *.
  do 2 rewrite Cpow_S, Cim_mul ; rewrite IHn.
  rewrite Cre_mul.
  replace (Cre (0 +i a)) with R0 by reflexivity.
@@ -213,7 +213,7 @@ intros a ; rewrite <- Ceq ; split ; simpl ;
 
 clear ; induction p.
  simpl ; field.
- replace (2 * S p)%nat with (S (S (2 * p)))%nat by intuition auto with *.
+ replace (2 * S p)%nat with (S (S (2 * p)))%nat by auto with *.
  do 2 rewrite sum_f_C0_simpl ; rewrite tech5 ; do 2 rewrite<- Cre_add_compat ;
  rewrite <- IHp, Rplus_assoc ; apply Rplus_eq_compat_l.
  replace ((-1) ^ S p / INR (fact (2 * S p)) * a² ^ S p)%R
@@ -221,10 +221,10 @@ clear ; induction p.
  replace (Cre (gt_pser exp_seq (0 +i  a) (S (2 * p))))%R with R0.
  symmetry ; apply Rplus_0_l.
  unfold_gt ; unfold exp_seq ; rewrite Cre_mul.
- replace (S (S (2 * p))) with (2 * S p)%nat by intuition auto with *.
+ replace (S (S (2 * p))) with (2 * S p)%nat by auto with *.
  rewrite Cim_inv_INC, Rmult_0_l, Cre_Cpow_S2 ; ring.
  unfold_gt ; unfold exp_seq ; rewrite Cre_mul.
- replace (S (S (2 * p))) with (2 * S p)%nat by intuition auto with *.
+ replace (S (S (2 * p))) with (2 * S p)%nat by auto with *.
  rewrite Cre_Cpow_2, Cim_Cpow_2, INC_inv_Cre_INR.
  unfold Rsqr ; rewrite pow_mult, Rmult_0_r, Rminus_0_r.
  rewrite Rmult_comm ; unfold Rdiv ; do 2 rewrite Rmult_assoc ;
@@ -239,7 +239,7 @@ clear ; induction p.
 
 clear ; induction p.
  simpl ; field.
- replace (2 * S p)%nat with (S (S (2 * p)))%nat by intuition auto with *.
+ replace (2 * S p)%nat with (S (S (2 * p)))%nat by auto with *.
  do 2 rewrite sum_f_C0_simpl ; rewrite tech5 ; do 2 rewrite<- Cre_add_compat ;
  rewrite <- IHp, Rplus_assoc ; apply Rplus_eq_compat_l.
  replace ((-1) ^ S p / INR (fact (2 * S p)) * a² ^ S p)%R
@@ -247,10 +247,10 @@ clear ; induction p.
  replace (Cre (gt_pser exp_seq (0 +i  a) (S (S (S (2 * p))))))%R with R0.
  symmetry ; apply Rplus_0_r.
  unfold_gt ; unfold exp_seq ; rewrite Cre_mul.
- replace (S (S (2 * p))) with (2 * S p)%nat by intuition auto with *.
+ replace (S (S (2 * p))) with (2 * S p)%nat by auto with *.
  rewrite Cim_inv_INC, Rmult_0_l, Cre_Cpow_S2 ; ring.
  unfold_gt ; unfold exp_seq ; rewrite Cre_mul.
- replace (S (S (2 * p))) with (2 * S p)%nat by intuition auto with *.
+ replace (S (S (2 * p))) with (2 * S p)%nat by auto with *.
  rewrite Cre_Cpow_2, Cim_Cpow_2, INC_inv_Cre_INR.
  unfold Rsqr ; rewrite pow_mult, Rmult_0_r, Rminus_0_r.
  rewrite Rmult_comm ; unfold Rdiv ; do 2 rewrite Rmult_assoc ;
@@ -271,8 +271,8 @@ clear ; induction p.
  simpl ; field.
  rewrite sum_f_C0_simpl, <- Cim_add_compat, IHn, Rplus_0_l ;
  unfold gt_pser ; replace (0 +i 0) with C0 by reflexivity.
- unfold Cseq_mult ; rewrite C0_pow, Cmult_0_r ; simpl ; intuition auto with *.
- intuition auto with *.
+ unfold Cseq_mult ; rewrite C0_pow, Cmult_0_r ; simpl ; auto with *.
+ auto with *.
 
 pose (eps' := (eps / Rabs a)%R) ; assert (eps'_pos : 0 < eps').
  unfold eps', Rdiv ; apply Rlt_mult_inv_pos ; [| apply Rabs_pos_lt] ; assumption.
@@ -291,7 +291,7 @@ destruct (Hl' _ eps'_pos) as [N HN] ; exists (S (2 * N))%nat ;
   clear ; induction p.
   simpl ; field.
 
- replace (2 * S (S p))%nat with (S (S (2 * S p))) by intuition auto with *.
+ replace (2 * S (S p))%nat with (S (S (2 * S p))) by auto with *.
  rewrite tech5 ; do 2 rewrite sum_f_C0_simpl, <- Cim_add_compat.
  rewrite IHp, Rplus_assoc ; apply Rplus_eq_compat_l.
  replace (Cim (gt_pser exp_seq (0 +i  a) (S (S (2 * S p)))))%R with R0.
@@ -301,7 +301,7 @@ destruct (Hl' _ eps'_pos) as [N HN] ; exists (S (2 * N))%nat ;
  unfold Rsqr.
  rewrite INC_inv_Cre_INR.
  replace (a ^ S (2 * S p))%R with (a * (a ^ 2) ^ (S p))%R.
- replace (2 * S p + 1)%nat with (S (2 * S p)) by intuition auto with *.
+ replace (2 * S p + 1)%nat with (S (2 * S p)) by auto with *.
  rewrite (Rmult_comm (/ INR (fact (S (2 * S p)))) _) ; unfold Rdiv ;
  repeat rewrite Rmult_assoc ; apply Rmult_eq_compat_l.
  rewrite Rmult_comm, <- Rmult_assoc ; apply Rmult_eq_compat_r.
@@ -310,7 +310,7 @@ destruct (Hl' _ eps'_pos) as [N HN] ; exists (S (2 * N))%nat ;
  rewrite <- pow_mult ; simpl ; reflexivity.
  apply fact_neq_0.
 unfold_gt ; unfold exp_seq ; rewrite Cim_mul ;
-replace ( S (S (2 * S p))) with (2 * (S (S p)))%nat by (intuition auto with *) ;
+replace ( S (S (2 * S p))) with (2 * (S (S p)))%nat by auto with * ;
 rewrite Cim_Cpow_2, INC_inv_Cim_INR.
 do 2 rewrite Rmult_0_r ; ring.
 apply fact_neq_0.
@@ -324,18 +324,18 @@ apply fact_neq_0.
   clear ; induction p.
   simpl ; field.
 
- replace (2 * (S p))%nat with (S (S (2 * p))) by intuition auto with *.
+ replace (2 * (S p))%nat with (S (S (2 * p))) by auto with *.
  rewrite tech5 ; do 2 rewrite sum_f_C0_simpl, <- Cim_add_compat.
  rewrite IHp, Rplus_assoc ; apply Rplus_eq_compat_l.
  replace (Cim (gt_pser exp_seq (0 +i  a) (S (S (2 * p)))))%R with R0.
  unfold_gt ; unfold exp_seq.
- replace (S (S (S (2 * p)))) with (S (2 * (S p))) by intuition auto with *.
+ replace (S (S (S (2 * p)))) with (S (2 * (S p))) by auto with *.
  rewrite Cim_mul, Cre_Cpow_S2, Cim_Cpow_S2, Rmult_0_l,
  Rplus_0_l, Rplus_0_r.
  unfold Rsqr.
  rewrite INC_inv_Cre_INR.
  replace (a ^ S (2 * S p))%R with (a * (a ^ 2) ^ (S p))%R.
- replace (2 * S p + 1)%nat with (S (2 * S p)) by intuition auto with *.
+ replace (2 * S p + 1)%nat with (S (2 * S p)) by auto with *.
  rewrite (Rmult_comm (/ INR (fact (S (2 * S p)))) _) ; unfold Rdiv ;
  repeat rewrite Rmult_assoc ; apply Rmult_eq_compat_l.
  rewrite Rmult_comm, <- Rmult_assoc ; apply Rmult_eq_compat_r.
@@ -344,7 +344,7 @@ apply fact_neq_0.
  rewrite <- pow_mult ; simpl ; reflexivity.
  apply fact_neq_0.
 unfold_gt ; unfold exp_seq ; rewrite Cim_mul ;
-replace (S (S (2 * p))) with (2 * (S p))%nat by (intuition auto with *) ;
+replace (S (S (2 * p))) with (2 * (S p))%nat by auto with * ;
 rewrite Cim_Cpow_2, INC_inv_Cim_INR.
 do 2 rewrite Rmult_0_r ; ring.
 apply fact_neq_0.

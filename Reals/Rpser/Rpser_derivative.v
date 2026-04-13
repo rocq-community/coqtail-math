@@ -123,7 +123,7 @@ assert (lb_lt_x : - middle (Rabs x) (Rabs r) < x).
          (mkposreal_lb_ub x (- middle (Rabs x) (Rabs r)) (middle (Rabs x) (Rabs r))
          lb_lt_x x_lt_ub) y).
      unfold Boule in * ; rewrite middle_R0 in y_bd ; assumption.
-    assert(n_lb2 : (N <= pred n)%nat) by intuition auto with *.
+    assert(n_lb2 : (N <= pred n)%nat) by auto with *.
     assert (Temp := HN (pred n) y n_lb2 y_bd2).
     assert (T1 := SFL_interv_right (fun (n : nat) (x : R) => gt_pser (An_deriv An) x n)
             (mkposreal_lb_ub x (- middle (Rabs x) (Rabs r))

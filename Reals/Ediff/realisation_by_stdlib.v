@@ -8,7 +8,7 @@ Proof.
 intros.
 destruct (Rle_dec a b).
 apply continuity_implies_RiemannInt; intuition.
-assert (b <= a) ; intuition auto with *.
+assert (b <= a) ; auto with *.
 apply RiemannInt_P1.
 apply continuity_implies_RiemannInt; intuition.
 Qed.

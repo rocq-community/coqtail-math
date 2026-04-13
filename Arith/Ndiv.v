@@ -1779,7 +1779,7 @@ Qed.
 Lemma div_mod a b : a <> 0 -> (a | b) <-> b mod a = 0.
 Proof.
   intros az; split.
-  - intros (k, ->). apply Nat.mod_mul, az.
+  - intros (k, ->). apply Nat.Div0.mod_mul.
   - intros e. exists (b / a).
     etransitivity. apply (Nat.div_mod _ a), az.
     lia.
@@ -1796,7 +1796,7 @@ Proof.
   - intros (k, e).
     assert (b = a + k * m) by lia.
     assert (b mod m = (a + k * m) mod m) as -> by congruence.
-    rewrite Nat.mod_add; auto.
+    rewrite Nat.Div0.mod_add; auto.
 Qed.
 
 Lemma Nrel_prime_eqmod m a b :
@@ -1848,12 +1848,12 @@ Proof.
   - apply Nrel_prime_sym.
     eapply Nrel_prime_eqmod with (a mod p).
     lia.
-    now rewrite Nat.mod_mod; lia.
+    now rewrite Nat.Div0.mod_mod.
     apply Nrel_prime_sym, Nprime_le_rel_prime; auto.
     split.
     + rewrite (Ndivide_eqmod _ _ (a mod p)) in ap.
       2: lia.
-      2: now rewrite Nat.mod_mod; lia.
+      2: now rewrite Nat.Div0.mod_mod.
       enough (0 <> a mod p) by lia.
       intros e. apply ap. rewrite <-e.
       apply Ndiv_0.

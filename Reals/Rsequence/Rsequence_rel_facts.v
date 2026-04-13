@@ -1016,7 +1016,7 @@ left; apply HN; assumption.
 Qed.
 
 (**********)
-Lemma Rseq_equiv_1 : forall Un Vn, (forall n, Vn n <> 0) -> (Rseq_div Un  Vn) ~ 1 -> Un ~ Vn.
+Lemma Rseq_equiv_1 : forall Un Vn, (forall n, Vn n <> 0) -> (Rseq_div Un Vn) ~ (1 : Rseq) -> Un ~ Vn.
 Proof.
 intros Un Vn Hneq H.
 apply Rseq_equiv_sym in H.

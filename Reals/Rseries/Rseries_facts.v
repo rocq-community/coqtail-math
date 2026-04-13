@@ -547,7 +547,7 @@ pose (Wn := (Un1 - Vn)%Rseq).
 destruct Hlt as [k [Hnk Hlt]].
 exists Wn. exists k.
 split. 
- unfold Wn. unfold Rseq_minus, Un1; intuition.
+ unfold Wn. unfold Rseq_minus, Un1; intuition auto with real.
  apply Rge_minus. apply Rle_ge. apply Hle. assumption.
 
  split ; [assumption|unfold Wn, Rseq_minus, Un1].
@@ -563,7 +563,7 @@ intros eps Heps.
 destruct (Uncv eps Heps) as (N, Hn).
 exists (S n + N)%nat.
 intros k Hk.
-assert (HkN : (k >= N)%nat) by intuition.
+assert (HkN : (k >= N)%nat) by auto with zarith real.
 generalize (Hn k HkN) ; intros Hcv.
 unfold R_dist in *.
 assert (forall k n, (k >= S n)%nat -> sum_f_R0 (fun k0 : nat => Un (k0 - S n)%nat) k =
@@ -583,10 +583,10 @@ assert (forall k n, (k >= S n)%nat -> sum_f_R0 (fun k0 : nat => Un (k0 - S n)%na
 
     intuition.
   rewrite H. ring_simplify (sum_f_R0 Un (k - S n) + INR (S n) * Un 0%nat - (l + INR (S n) * Un 0%nat)).
-   assert (k - S n >= N)%nat by intuition. 
+   assert (k - S n >= N)%nat by auto with zarith real.
    generalize (Hn (k - S n)%nat H0). intuition.
    
-   intuition.
+   auto with arith zarith real.
 Qed.
 (* end hide *)
 
@@ -613,18 +613,18 @@ assert (H1 : Rser_cv (Vn + Wn)%Rseq (l + l1)).
 rewrite (Rser_Rser_rem_equiv Un (Vn + Wn)%Rseq x (l + l1) H1 n).
  apply Rser_rem_lt_le. 
   unfold Rseq_plus. intuition.
-  replace (Vn k) with (Vn k + 0) by intuition.
+  replace (Vn k) with (Vn k + 0) by auto with real.
   apply Rplus_le_compat.
-   intuition. 
+   auto with real.
 
-   destruct (Hwn11 k) as (_, Hwn1). destruct (Hwn1 H) ; intuition.
+   destruct (Hwn11 k) as (_, Hwn1). destruct (Hwn1 H) ; auto with real.
 
   destruct Hlt as (k, H2). exists k ; intuition.
   destruct (Hwn11 k) as (Hwn1, Hwn5). unfold Rseq_plus. rewrite Hwn1. intuition.
 
  intros k.
  destruct (Hwn11 (S n + k)%nat) as (Hwn1, Hwn5).
- unfold Rseq_shifts, Rseq_plus. rewrite Hwn1. intuition.
+ unfold Rseq_shifts, Rseq_plus. rewrite Hwn1. auto with arith.
 
  assumption.
 Qed.

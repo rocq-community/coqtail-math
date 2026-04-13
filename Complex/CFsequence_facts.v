@@ -418,8 +418,8 @@ Proof.
   replace (sum_f_R0 An N + sum_f_R0 (fun l:nat => An (S N + l)%nat) n)%R with
   (sum_f_R0 An (S (N + n)))%R.
   apply HN' ; intuition lia.
-  assert (N_pos : (0 <= N)%nat) by intuition.
-  assert (N_ub : (N < S (N + n))%nat) by intuition.
+  assert (N_pos : (0 <= N)%nat) by auto with arith.
+  assert (N_ub : (N < S (N + n))%nat) by auto with arith.
   intros; assert (H := sigma_split An N_pos N_ub) ; unfold sigma in H.
   do 2 rewrite Nat.sub_0_r in H.
   replace (sum_f_R0 An (S (N + n))) with
@@ -441,8 +441,8 @@ Proof.
       replace ((CFpartial_sum (fun n0 : nat => fn n0 x) N + sum_f_C0 (fun l:nat => fn (S N + l)%nat x) n))
       with (CFpartial_sum (fun n0 : nat => fn n0 x) (S N + n)%nat).
   apply HN' ; intuition lia.
-  assert (N_pos : (0 <= N)%nat) by intuition.
-  assert (N_ub : (N < S (N + n))%nat) by intuition.
+  assert (N_pos : (0 <= N)%nat) by auto with arith.
+  assert (N_ub : (N < S (N + n))%nat) by auto with arith.
   intros; assert (H := Csigma_split (fun n => fn n x) O (S (N + n)) N N_pos N_ub) ; unfold Csigma in H.
   do 2 rewrite Nat.sub_0_r in H.
   replace (CFpartial_sum (fun n0 : nat => fn n0 x) (S N + n)) with
@@ -464,8 +464,8 @@ Proof.
   replace (sum_f_R0 An N + sum_f_R0 (fun l:nat => An (S N + l)%nat) n)%R with
   (sum_f_R0 An (S (N + n)))%R.
   apply HN' ; intuition lia.
-  assert (N_pos : (0 <= N)%nat) by intuition.
-  assert (N_ub : (N < S (N + n))%nat) by intuition.
+  assert (N_pos : (0 <= N)%nat) by auto with arith.
+  assert (N_ub : (N < S (N + n))%nat) by auto with arith.
   intros; assert (H := sigma_split An N_pos N_ub) ; unfold sigma in H.
   do 2 rewrite Nat.sub_0_r in H.
   replace (sum_f_R0 An (S (N + n))) with
@@ -487,8 +487,8 @@ Proof.
       replace ((CFpartial_sum (fun n0 : nat => fn n0 x) N + sum_f_C0 (fun l:nat => fn (S N + l)%nat x) n))
       with (CFpartial_sum (fun n0 : nat => fn n0 x) (S N + n)%nat).
   apply HN' ; intuition lia.
-  assert (N_pos : (0 <= N)%nat) by intuition.
-  assert (N_ub : (N < S (N + n))%nat) by intuition.
+  assert (N_pos : (0 <= N)%nat) by auto with arith.
+  assert (N_ub : (N < S (N + n))%nat) by auto with arith.
   intros; assert (H := Csigma_split (fun n => fn n x) O (S (N + n)) N N_pos N_ub) ; unfold Csigma in H.
   do 2 rewrite Nat.sub_0_r in H.
   replace (CFpartial_sum (fun n0 : nat => fn n0 x) (S N + n)) with

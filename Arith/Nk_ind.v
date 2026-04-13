@@ -21,6 +21,7 @@ USA.
 
 Require Import PeanoNat.
 Require Import Compare.
+Require Import Lia.
 Open Scope nat_scope.
 
 (* begin hide *)
@@ -141,11 +142,7 @@ reflexivity.
 intro.
 unfold kth_S. fold kth_S.
 rewrite IHk.
-assert (n + S k + 1=S k + n +1).
-auto with arith.
-rewrite H. clear H.
-simpl.
-auto with arith.
+lia.
 Qed.
 
 (** introduction of [next_P_k] *)

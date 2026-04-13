@@ -125,7 +125,7 @@ apply continuity_pt_inv.
   apply continuity_pt_constant.
   apply continuity_pt_sqrt.
   apply Rle_trans with (Rmin a b).
-  apply Rmin_ge; intuition.
+  apply Rmin_ge; intuition auto with *.
   intuition.
 assert( 0 < 2 * sqrt x).
 apply Rmult_lt_0_compat.

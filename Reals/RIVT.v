@@ -65,7 +65,7 @@ Qed.
 Lemma cond_positivity_car': forall x,
   cond_positivity x = false <-> x < 0.
 Proof.
-intro ; unfold cond_positivity ; destruct (Rle_dec 0 x) ; intuition.
+intro ; unfold cond_positivity ; destruct (Rle_dec 0 x) ; intuition auto with *.
  discriminate.
  destruct (Rlt_irrefl 0) ; eapply Rle_lt_trans ; eassumption.
 Qed.
@@ -143,7 +143,7 @@ intros f x y l Hf Hxy Hl ;
   assumption.
   clear - Hl; destruct Hl ; split ; unfold minus_fct ; lra.
  exists z ; split ; [assumption |].
-  clear - Hz ; unfold minus_fct in * ; intuition.
+  clear - Hz ; unfold minus_fct in * ; intuition auto with *.
 Qed. 
 
 Lemma IVT_interval : forall (f : R -> R) (x y : R) l,

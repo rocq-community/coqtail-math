@@ -101,7 +101,7 @@ Proof.
   assert (Hrew : forall n, Un (S n) = -/ INR (S n)).
    intro ; reflexivity.
    intro n ; unfold Rseq_opp ; repeat rewrite Hrew, Ropp_involutive.
-   apply Rle_Rinv ; intuition.
+   apply Rle_Rinv ; intuition auto with *.
   assert (Un_cv_0 : Un_cv (fun n : nat => - Un (S n)) 0).
   replace (fun n : nat => Un (S n)) with (fun n => - / INR (S n)).
   rewrite <- Ropp_involutive ;  do 2 apply Rseq_cv_opp_compat.
@@ -111,7 +111,7 @@ Proof.
   destruct (Rseq_poly_cv 1 lt_0_1 M) as [N HN] ;
   exists N ; intros n n_gt_N ; apply Rlt_trans with (INR n).
   rewrite <- pow_1 ; apply HN ; assumption.
-  intuition.
+  intuition auto with *.
   reflexivity.
  destruct (alternated_series (fun n => - Un (S n)) Un_decr Un_cv_0) as [l Hl].
 
@@ -141,7 +141,7 @@ Proof.
   repeat rewrite Rplus_assoc ; apply Rplus_eq_compat_l.
   rewrite Rplus_comm ; apply Rplus_eq_compat_r.
   unfold gt_pser. unfold Rseq_mult. simpl pow. ring.
-  apply HN ; intuition.
+  apply HN ; intuition auto with *.
 
  intros M Hconv.
  unfold Rpser_abs in *.

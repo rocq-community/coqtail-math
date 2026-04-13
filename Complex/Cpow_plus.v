@@ -122,7 +122,7 @@ Proof.
 intros n zR zI.
 apply sum_f_C0_eq_seq.
 intros n0 H.
-replace (zR +i zI) with ((zR, 0%R) + (0%R, zI)) by (rewrite <- Ceq ; simpl ; intuition).
+replace (zR +i zI) with ((zR, 0%R) + (0%R, zI)) by (rewrite <- Ceq ; simpl ; intuition auto with *).
 generalize equi_binom_add. intro Hn1. unfold Cdiv in *. apply Hn1. exact H. 
 Qed.
 (* end hide *)
@@ -175,8 +175,8 @@ field.
 split ; try split ; apply not_0_INC ; try apply fact_neq_0 ; intuition lia.
 }
 ring_simplify.
-replace (S n - S n)%nat with O by intuition.
-replace (S (S n) - S (S n))%nat with O by intuition.
+replace (S n - S n)%nat with O by intuition auto with *.
+replace (S (S n) - S (S n))%nat with O by intuition auto with *.
 repeat rewrite fact_simpl.
 repeat rewrite mult_INC. simpl (INC 0).
 field_simplify. unfold Cdiv. repeat rewrite Cmult_0_r. rewrite Cmult_0_l. reflexivity.

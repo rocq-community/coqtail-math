@@ -219,7 +219,7 @@ Lemma sum_sums : forall (An : nat -> C) (Pr : infinite_cv_radius An),
       forall x, Cpser An x (sum An Pr x).
 Proof.
 intros An Pr x.
- apply weaksum_r_sums ; intuition.
+ apply weaksum_r_sums ; auto with real.
 Qed.
 
 (** Proof that the sum is unique *)
@@ -317,8 +317,8 @@ intros An r Pr r0 r0_ub.
  assert (r'_bd : Rabs ((a + r) / 2) < r).
   rewrite Rabs_right.
   assert (Hrew : r = ((r+r)/2)%R) by field ; rewrite Hrew at 2; unfold Rdiv ;
-  apply Rmult_lt_compat_r ; [apply Rinv_0_lt_compat ; intuition |] ;
-  apply Rplus_lt_compat_r ; rewrite Rabs_right in a_bd ; intuition.
+  apply Rmult_lt_compat_r ; [apply Rinv_0_lt_compat ; intuition auto with *|] ;
+  apply Rplus_lt_compat_r ; rewrite Rabs_right in a_bd ; intuition auto with *.
   apply Rle_ge ; unfold Rdiv ; replace 0%R with (0 * /2)%R by field ;
   apply Rmult_le_compat_r ; lra.
  assert (r'_bd2 : Cnorm (Rabs ((a + r) / 2)) < r).
@@ -405,7 +405,7 @@ intros An M M_pos An_neq An_frac_ub r r_bd.
   destruct (Req_dec r 0) as [Hr | Hf].
   rewrite Hr ; unfold gt_norm_pser ; rewrite Cnorm_Cmult, Cnorm_pow,
   Cnorm_IRC_Rabs, RPow_abs, pow_i, Rabs_R0, Rmult_0_r ;
-  [apply Cnorm_pos | intuition].
+  [apply Cnorm_pos | intuition auto with *].
   apply False_ind ; assert (T := Rabs_no_R0 _ Hf) ;
   apply T ; symmetry ; assumption.
 Qed.
@@ -458,7 +458,7 @@ intros An lam lam_pos An_neq An_frac_cv r r_bd.
  apply Rplus_le_compat_l ; apply Rle_trans with
    (R_dist (Cnorm (An (S (N + n)) / An (N + n)%nat)) (Cnorm lam))%R.
  apply RRle_abs.
- left ; apply HN ; intuition.
+ left ; apply HN ; intuition auto with *.
  replace (Cnorm lam + eps)%R with (/ (middle (Rabs r) (/ Cnorm lam)))%R.
  rewrite Rinv_involutive ; [| apply Rgt_not_eq] ; assumption.
  unfold eps ; ring.
@@ -480,7 +480,7 @@ intros An An_neq An_frac_0 r.
  apply Rle_trans with (R_dist (Cnorm (An (S (N + n)) / An (N + n)%nat)) 0) ; [right |].
  unfold R_dist in |-* ; rewrite Rminus_0_r, Rabs_right ; [reflexivity | apply Rle_ge ;
  apply Cnorm_pos].
- left ; apply HN ; intuition.
+ left ; apply HN ; intuition auto with *.
  rewrite Rinv_involutive ; [lra |] ; apply Rgt_not_eq ;
  apply Rplus_le_lt_0_compat ; [apply Rabs_pos | apply Rlt_0_1].
 Qed.
@@ -494,7 +494,7 @@ intros An z l Hzl.
     <= Rmax 2 (Cnorm (An 0%nat) + 1)).
   intros n Hn ; case_eq n ; unfold_gt.
   intro H ; simpl ; rewrite Cmult_1_r ; apply Rle_trans with (Cnorm (An 0%nat) +1)%R ;
-   [intuition | apply RmaxLess2].
+   [intuition auto with * | apply RmaxLess2].
    intros m Hrew ; replace (Cnorm (An (S m) * z ^ S m)) with
          (Cnorm ((sum_f_C0 (fun n0 : nat => An n0 * z ^ n0) (S m) - l) +
          (l - sum_f_C0 (fun n0 : nat => An n0 * z ^ n0) m))).
@@ -507,11 +507,11 @@ intros An z l Hzl.
          (S m)) l).
   right ; simpl ; unfold C_dist ; reflexivity.
   simpl (dist C_met) ;unfold C_dist ; unfold Cseq_sum, gt_pser, Cseq_mult in HN ;
-  apply HN ; intuition.
+  apply HN ; intuition auto with *.
   apply Rle_lt_trans with (dist C_met (sum_f_C0 (fun n0 : nat => An n0 * z ^ n0) m) l).
   right ; simpl ; unfold C_dist ; reflexivity.
   simpl (dist C_met) ;unfold C_dist ; unfold Cseq_sum, gt_pser, Cseq_mult in HN ;
-  apply HN ; intuition.
+  apply HN ; intuition auto with *.
    simpl sum_f_C0 ; apply Cnorm_eq_compat.
    simpl ; ring.
    destruct (Cseq_partial_bound (gt_pser An z) (S N)) as (B,HB).
@@ -525,7 +525,7 @@ intros An z l Hzl.
    apply RmaxLess1.
    unfold_gt ; rewrite Cnorm_Cmult.
    rewrite Cnorm_pow, Cnorm_invol, <- Cnorm_pow, <- Cnorm_Cmult.
-   apply Rle_trans with (Rmax 2 (Cnorm (An 0%nat) + 1)) ; [apply H1 | apply RmaxLess2] ; intuition.
+   apply Rle_trans with (Rmax 2 (Cnorm (An 0%nat) + 1)) ; [apply H1 | apply RmaxLess2] ; intuition auto with *.
 Qed.
 
 (** A sufficient condition for the radius of convergence*)
@@ -536,7 +536,7 @@ intros An z l Hcv Hncv.
 split; intros x Hx.
 
  apply Cv_radius_weak_le_compat with (Cnorm z).
- rewrite Rabs_Cnorm ; rewrite Rabs_right ; intuition.
+ rewrite Rabs_Cnorm ; rewrite Rabs_right ; intuition auto with *.
 
   apply (Cpser_bound_criteria _ _ l Hcv).
   
@@ -578,7 +578,7 @@ intros An r rho r' r'_bd.
  rewrite Hi ; unfold An_deriv, Cseq_shift ; unfold_gt.
  destruct i.
  simpl ; rewrite Cmult_1_l, Cmult_1_r ; apply Rle_refl.
- rewrite r'_lb ; rewrite IRC_pow_compat, pow_i ; [| intuition] ;
+ rewrite r'_lb ; rewrite IRC_pow_compat, pow_i ; [| intuition auto with *] ;
  repeat rewrite Cmult_0_r, Cnorm_C0 ; apply Cnorm_pos.
  assert (Rabsr'_pos : 0 < Rabs r') by (apply Rabs_pos_lt ; assumption). 
  destruct (Rpser_cv_speed_pow_id (r' / r) x_lt_1 (Rabs r') Rabsr'_pos) as (N, HN).
@@ -624,7 +624,7 @@ intros An r rho r' r'_bd.
  rewrite <- IRC_pow_compat, Cdiv_IRC_Rdiv.
  reflexivity.
   intro Hf ; rewrite Hf, Rabs_R0 in Rabsr_pos ; elim (Rlt_irrefl _ Rabsr_pos).
-  rewrite Cnorm_IRC_Rabs ; left ; apply HN ; intuition.
+  rewrite Cnorm_IRC_Rabs ; left ; apply HN ; intuition auto with *.
  rewrite <- Cnorm_Cmult ; rewrite Cinv_l ; [| auto with complex] ; rewrite Cnorm_C1 ; right ; trivial.
 Qed.
 
@@ -711,7 +711,7 @@ Qed.
 Lemma sum_derive_sums : forall (An : nat -> C) (Pr : infinite_cv_radius An) (z : C),
       Cpser (An_deriv An) z (sum_derive An Pr z).
 Proof.
-intros An Pr z ; unfold sum_derive ; apply weaksum_r_derive_sums ; intuition.
+intros An Pr z ; unfold sum_derive ; apply weaksum_r_derive_sums ; intuition auto with *.
 Qed.
 
 (** Proof that the sum is unique *)
@@ -808,10 +808,10 @@ assert (cv : forall z : C, Boule 0 r' z ->  {l : C |  Cseq_cv (fun N : nat =>
  unfold fn', g.
  intros eps eps_pos ; destruct (fn'_cvu _ eps_pos) as [N HN] ; exists (S N) ;
  clear fn'_cvu fn_deriv rho_An' ; intros n y n_lb y_bd.
- assert (H : n = S (pred n)) by intuition ; rewrite H ; clear H ; simpl.
+ assert (H : n = S (pred n)) by (intuition auto with *) ; rewrite H ; clear H ; simpl.
  unfold CFseq_cvu, SFL_interv, CFpartial_sum in HN.
- assert (predn_lb : (N <= pred n)%nat) by intuition.
- assert (Temp := HN (pred n) y predn_lb y_bd).
+ assert (predn_lb : (N <= pred n)%nat) by intuition auto with *.
+ pose proof (HN (pred n) y predn_lb y_bd) as Temp.
  destruct (Rlt_le_dec (Cnorm (0 - y)) r') as [H | Hf].
  destruct (cv y H) as [l Hl].
  assert (Hrew : l = weaksum_r_derive An r rho y).
@@ -916,7 +916,7 @@ Lemma derivable_pt_lim_sum : forall (An:nat->C) (Pr : infinite_cv_radius An) z,
 Proof.
 intros An Pr z eps eps_pos. 
  assert (H : 0 <= Cnorm z < Cnorm z + 1).
-  split ; [apply Cnorm_pos |] ; intuition.
+  split ; [apply Cnorm_pos |] ; intuition auto with *.
  destruct (derivable_pt_lim_weaksum_r _ _ (Pr (Cnorm z + 1)%R) z (proj2 H) _ eps_pos) as [delta Hdelta].
 
  pose (delta' := Rmin delta 1) ; assert (delta'_pos : 0 < delta').
@@ -934,5 +934,5 @@ intros An Pr z eps eps_pos.
  apply Cnorm_triang.
  apply Rplus_lt_compat_l ; apply Rlt_le_trans with delta' ;
  [intuition | apply Rmin_r].
- intuition.
+ intuition auto with *.
 Qed.

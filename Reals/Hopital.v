@@ -386,7 +386,7 @@ Proof.
   assert (forall x (Hclose : a <= x <= b), continuity_pt f x).
    intros. apply Cf. now apply Hclose.
 
-   unfold continuity_pt in H. unfold continue_in in H. specialize (H a). assert (a <= a <= b) by intuition. 
+   unfold continuity_pt in H. unfold continue_in in H. specialize (H a). assert (a <= a <= b) by intuition auto with *.
    apply H in H0. apply (limit_open f a b) in H0. eapply single_limit; [ | apply H0 | apply Zf ]. unfold adhDa. 
    intros. exists (a + Rmin ((b - a) / 2) (alp / 2)). assert (H6 : alp / 2 > 0) by lra. 
    assert ((b - a) > 0) by lra. assert ((b-a) /2 > 0).
@@ -419,7 +419,7 @@ Proof.
 
     now lra.
 
-  ring_simplify. apply Rle_ge. apply Rmin_glb; intuition.       
+  ring_simplify. apply Rle_ge. apply Rmin_glb; intuition auto with *. 
 Qed.
 
 Lemma g_a_zero : g a = 0. 
@@ -427,7 +427,7 @@ Proof.
   assert (forall x (Hclose : a <= x <= b), continuity_pt g x).
    intros. apply Cg. now apply Hclose.
    
-   unfold continuity_pt in H. unfold continue_in in H. specialize (H a). assert (a <= a <= b) by intuition.
+   unfold continuity_pt in H. unfold continue_in in H. specialize (H a). assert (a <= a <= b) by intuition auto with *.
    apply H in H0. apply (limit_open g a b) in H0. eapply single_limit; [ | apply H0 | apply Zg ].
    unfold adhDa. intros. exists (a + Rmin ((b - a) / 2) (alp / 2)). assert (H6 : alp / 2 > 0) by lra.
    assert ((b - a) > 0) by lra. assert ((b-a) /2 > 0).
@@ -460,7 +460,7 @@ Proof.
     
     now lra.
   
-  ring_simplify. apply Rle_ge. apply Rmin_glb; intuition.
+  ring_simplify. apply Rle_ge. apply Rmin_glb; intuition auto with *.
 Qed.
 
 Theorem Hopital_g0_Lfin_right : limit1_in (fun x => f x / g x) (open_interval a b) L a.
@@ -488,13 +488,13 @@ Proof.
      intros. apply Cf. split.
       now intuition.
       
-      unfold open_interval in H2. now apply Rle_trans with x0; intuition.
+      unfold open_interval in H2. now apply Rle_trans with x0; intuition auto with *.
     
     assert (forall c, a <= c <= x0 -> continuity_pt g c).
      intros. apply Cg. split.
       now intuition.
       
-      unfold open_interval in H2. now apply Rle_trans with x0; intuition.
+      unfold open_interval in H2. now apply Rle_trans with x0; intuition auto with *.
     
     specialize (H1 H5 H6 H7). destruct H1 as [c [P Hold2]]. exists c. assert (Hopenc : open_interval a b c).
      unfold open_interval in *. split.
@@ -817,15 +817,15 @@ Proof.
   
   specialize (H H3 H4 H2). assert (forall c : R, x <= c <= y -> continuity_pt f c).
    intros. apply Cf. unfold open_interval in *. split.
-    now apply Rle_trans with x; intuition.
+    now apply Rle_trans with x; intuition auto with *.
     
-    apply Rle_trans with y; intuition. now apply Rle_trans with a'; intuition.
+    apply Rle_trans with y; intuition. now apply Rle_trans with a'; intuition auto with *.
   
   assert (forall c : R, x <= c <= y -> continuity_pt g c).
    intros. apply Cg. unfold open_interval in *. split.
-    now apply Rle_trans with x; intuition.
+    now apply Rle_trans with x; intuition auto with *.
     
-    apply Rle_trans with y; intuition. now apply Rle_trans with a'; intuition.
+    apply Rle_trans with y; intuition. now apply Rle_trans with a'; intuition auto with *.
   
   specialize (H H5 H6). destruct H as [c [P Hold2]]. exists c. assert (Hopenc : open_interval a b c).
    unfold open_interval in *. destruct P; split.
@@ -906,7 +906,7 @@ Proof.
   assert (H15 : forall A eps, eps > 0 -> exists alp, 
            alp > 0 /\ forall x, open_interval a b x -> R_dist x a < alp -> Rabs (A / g x) < eps).
    intros. unfold limit_div_pos in Zg. destruct (Req_dec A 0) as [eq_dec1 | eq_dec2].
-    subst. exists 1. intuition. unfold Rdiv. rewrite Rmult_0_l. rewrite Rabs_R0. now assumption.
+    subst. exists 1. intuition auto with *. unfold Rdiv. rewrite Rmult_0_l. rewrite Rabs_R0. now assumption.
     
     specialize (Zg (Rabs A / eps0)). assert (Rabs A /eps0 > 0).
      assert (Rabs A > 0).
@@ -1661,13 +1661,13 @@ Proof.
      intros. apply Cf. split.
       now intuition.
       
-      unfold open_interval in H1. now apply Rle_trans with x0; intuition.
+      unfold open_interval in H1. now apply Rle_trans with x0; intuition auto with *.
     
     assert (forall c, a <= c <= x0 -> continuity_pt g c).
      intros. apply Cg. split.
       now intuition.
       
-      unfold open_interval in H1. now apply Rle_trans with x0; intuition.
+      unfold open_interval in H1. now apply Rle_trans with x0; intuition auto with *.
     
     specialize (H0 H4 H5 H6). destruct H0 as [c [P Hold2]]. exists c. assert (Hopenc : open_interval a b c).
      unfold open_interval in *. split.
@@ -1885,13 +1885,13 @@ Proof.
      intros. apply Cf. split.
       now intuition.
       
-      unfold open_interval in H1. now apply Rle_trans with x0; intuition.
+      unfold open_interval in H1. now apply Rle_trans with x0; intuition auto with *.
     
     assert (forall c, a <= c <= x0 -> continuity_pt g c).
      intros. apply Cg. split.
       now intuition.
       
-      unfold open_interval in H1. now apply Rle_trans with x0; intuition.
+      unfold open_interval in H1. now apply Rle_trans with x0; intuition auto with *.
     
     specialize (H0 H4 H5 H6). destruct H0 as [c [P Hold2]]. exists c. assert (Hopenc : open_interval a b c).
      unfold open_interval in *. split.
@@ -2143,7 +2143,7 @@ Proof.
   assert (H15 : forall A eps, eps > 0 -> exists alp, 
            alp > 0 /\ forall x, open_interval a b x -> R_dist x a < alp -> Rabs (A / g x) < eps).
    intros. unfold limit_div_pos in Zg. destruct (Req_dec A 0) as [eq_dec1 | eq_dec2].
-    subst. exists 1. intuition. unfold Rdiv. rewrite Rmult_0_l. rewrite Rabs_R0. now assumption.
+    subst. exists 1. intuition auto with *. unfold Rdiv. rewrite Rmult_0_l. rewrite Rabs_R0. now assumption.
     
     specialize (Zg (Rabs A / eps0)). assert (Rabs A /eps0 > 0).
      assert (Rabs A > 0).
@@ -2258,7 +2258,7 @@ Proof.
  
  rewrite Rmult_assoc.
  apply Rle_lt_trans with ((1 / 2) * (2 * eps + 2) - 1).
- replace (1 / 2 * (2 * eps + 2) - 1) with eps. intuition.
+ replace (1 / 2 * (2 * eps + 2) - 1) with eps. intuition auto with *.
  field.
  unfold Rminus.
  apply Rplus_lt_compat_r.
@@ -2492,7 +2492,7 @@ Proof.
   assert (H15 : forall A eps, eps > 0 -> exists alp, 
            alp > 0 /\ forall x, open_interval a b x -> R_dist x a < alp -> Rabs (A / g x) < eps).
    intros. unfold limit_div_pos in Zg. destruct (Req_dec A 0) as [eq_dec1 | eq_dec2].
-    subst. exists 1. intuition. unfold Rdiv. rewrite Rmult_0_l. rewrite Rabs_R0. now assumption.
+    subst. exists 1. intuition auto with *. unfold Rdiv. rewrite Rmult_0_l. rewrite Rabs_R0. now assumption.
     
     specialize (Zg (Rabs A / eps0)). assert (Rabs A /eps0 > 0).
      assert (Rabs A > 0).
@@ -2853,9 +2853,9 @@ apply Rlt_le_trans with (Rmin (a + alp) ((b + a) /2)). apply H1.
 apply Rmin_l. unfold R_dist. rewrite Rabs_right. lra.
 lra. specialize (Hsolve H1). intro. lra.
 split. apply Rmin_glb_lt. lra. apply Rle_lt_trans with ((a +a) / 2). apply Req_le. field. 
-unfold Rdiv. apply Rmult_lt_compat_r. lra. intuition.
+unfold Rdiv. apply Rmult_lt_compat_r. lra. intuition auto with *.
 apply Rle_lt_trans with ((b + a) / 2). apply Rmin_r.
-apply Rlt_le_trans with ((b + b) / 2). unfold Rdiv. apply Rmult_lt_compat_r. lra. intuition. 
+apply Rlt_le_trans with ((b + b) / 2). unfold Rdiv. apply Rmult_lt_compat_r. lra. intuition auto with *.
 apply Req_le. field.
 Qed.
 

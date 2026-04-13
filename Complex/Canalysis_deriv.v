@@ -178,7 +178,7 @@ intros f x Hf_deriv eps eps_pos ; destruct Hf_deriv as (l, Hl).
   destruct (Hl (eps / 2)%R eps_2_pos) as ([alpha alpha_pos], Halpha) ;
   exists (Rmin (1/2) alpha) ; split ; [apply Rmin_pos ; lra|] ;
   intros x' [_ x'_bd] ; simpl ; simpl in Halpha ; unfold C_dist in *.
-  pose (h := x' - x) ; replace x' with (x + h) by (unfold h ; intuition).
+  pose (h := x' - x) ; replace x' with (x + h) by (unfold h; auto with complex).
    case (Ceq_or_neq_C0 h) ; intro Hh_0.
    rewrite Hh_0, Cadd_0_r, Cminus_diag_eq ; [| reflexivity] ;
    rewrite Cnorm_C0 ; assumption.
@@ -195,7 +195,7 @@ intros f x Hf_deriv eps eps_pos ; destruct Hf_deriv as (l, Hl).
    apply Rlt_trans with ((Rmin (1/2) alpha) * eps)%R.
    apply Rmult_lt_compat_r ; assumption.
    apply Rle_lt_trans with (eps / 2)%R.
-   unfold Rdiv ; rewrite Rmult_comm ; apply Rmult_le_compat_l ; intuition ;
+   unfold Rdiv ; rewrite Rmult_comm ; apply Rmult_le_compat_l ; auto with real;
    apply Rle_trans with (1 * /2)%R ; [apply Rmin_l | right ; field].
    lra.
    assert (eps_2_pos : eps / 2 > 0) by lra ; 
@@ -209,7 +209,7 @@ intros f x Hf_deriv eps eps_pos ; destruct Hf_deriv as (l, Hl).
   apply Rgt_not_eq ; apply Cnorm_pos_lt ; assumption.
   apply Rmin_pos ; lra.
  intros x' [_ x'_bd] ; simpl ; unfold C_dist.
-  pose (h := x' - x) ; replace x' with (x+h) by (unfold h ; intuition) ;
+  pose (h := x' - x) ; replace x' with (x+h) by (unfold h ; intuition auto with complex) ;
   case (Ceq_or_neq_C0 h) ; intro Hh_0.
   rewrite Hh_0, Cadd_0_r, Cminus_diag_eq ; [| reflexivity] ;
   rewrite Cnorm_C0 ; assumption.

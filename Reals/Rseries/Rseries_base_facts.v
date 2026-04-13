@@ -22,7 +22,7 @@ Lemma Rser_cv_scal_compat_l: forall An la (l : R),
 Proof.
 intros ; eapply Rseq_cv_eq_compat.
  apply Rseq_sum_scal_compat_l.
- apply Rseq_cv_mult_compat ; intuition.
+ apply Rseq_cv_mult_compat ; auto with Rseq.
 Qed.
 
 Lemma Rser_cv_scal_compat_r: forall An la (l : R),
@@ -30,7 +30,7 @@ Lemma Rser_cv_scal_compat_r: forall An la (l : R),
 Proof.
 intros ; eapply Rseq_cv_eq_compat.
  apply Rseq_sum_scal_compat_r.
- apply Rseq_cv_mult_compat ; intuition.
+ apply Rseq_cv_mult_compat ; auto with Rseq.
 Qed.
 
 Lemma Rser_cv_opp_compat: forall An l,

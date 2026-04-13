@@ -79,7 +79,7 @@ induction n.
  
  split. 
   apply INR_fact_neq_0.
-  assert (INR n >= 0) by intuition ; intro H1 ; lra.
+  assert (INR n >= 0) by (intuition auto with *); intro H1 ; lra.
 Qed.
 
 Lemma integer_exp_minus_sum : forall a b : nat, 
@@ -106,7 +106,7 @@ Lemma sum_max : forall b N f,
     sum_f_R0 f (max N (S b))).
 Proof.
 intros b N f Hpos.
-assert (b < max N (S b))%nat by intuition.
+assert (b < max N (S b))%nat by intuition auto with *.
 induction H.
  replace (sum_f_R0 f b) with (sum_f_R0 f b + 0) by ring.
  simpl. apply Rplus_le_lt_compat. 
@@ -128,8 +128,8 @@ assert (INR (fact n) > 0).
  induction n.
   simpl. lra.
   
-  simpl. rewrite plus_INR. replace 0 with (0 + 0) by intuition.
-  apply Rplus_gt_ge_compat. apply IHn. intuition.
+  simpl. rewrite plus_INR. replace 0 with (0 + 0) by intuition auto with *.
+  apply Rplus_gt_ge_compat. apply IHn. intuition auto with *.
  apply Rinv_0_lt_compat. intuition.
 Qed.
 
@@ -151,9 +151,9 @@ Lemma sum_max1 : forall N b f,
     sum_f_R0 f (S b).
 Proof.
 intros N b f Hpos.
-assert (H : (S b <= max N (S b))%nat) by intuition.
+assert (H : (S b <= max N (S b))%nat) by intuition auto with *.
 induction H.
- intuition.
+ intuition auto with *.
  
  rewrite tech5.
  replace (sum_f_R0 f (S b)) with (sum_f_R0 f (S b) + 0) by ring.
@@ -175,7 +175,7 @@ assert (H : y <= sum_f_R0 (fun n : nat => / INR (fact n)) b -> False).
  assert (H1 : /INR (fact (S b)) > 0) by (apply inv_INR_fact_pos).
  generalize (Hexp (/INR (fact (S b))) H1) ; clear Hexp ; intro Hexp.
  destruct Hexp as (N, Hexp).
- assert (Hmax : ((max N (S b)) >= N)%nat). intuition.
+ assert (Hmax : ((max N (S b)) >= N)%nat). intuition auto with *.
  generalize (Hexp (max N (S b)) Hmax). clear Hexp. intros Hexp.
  unfold R_dist in *. unfold Rabs in *.
  replace (sum_f_R0 (fun i : nat => / INR (fact i) * 1 ^ i) (max N (S b)))
@@ -222,7 +222,7 @@ rewrite tech3.
   rewrite Rabs_div. rewrite Rabs_Ropp. unfold Rabs. destruct (Rcase_abs (-k + 1)) as [H|[H|H]].
 (* environnement -> False beginning*)   
    assert (H1 : (N >= N)%nat) by intuition. generalize (HN N H1). intros. 
-   assert (eps * (1 - k) < 0). replace 0 with (eps * 0) by intuition.
+   assert (eps * (1 - k) < 0). replace 0 with (eps * 0) by intuition auto with *.
    apply Rmult_lt_compat_l. apply Heps. lra. lra.
 (*end *)
    replace eps with (eps * (1 - k) * / (-k + 1)).
@@ -245,34 +245,34 @@ Proof.
 intros k n Hnb.
 induction Hnb.
  rewrite fact_simpl. rewrite mult_INR.
- replace (S n - S n)%nat with O by intuition.
+ replace (S n - S n)%nat with O by intuition auto with *.
  simpl pow.
  field_simplify. 
   right. reflexivity.
   
-  apply not_0_INR. intuition.
+  apply not_0_INR. intuition auto with *.
   
   split. 
    apply INR_fact_neq_0.
    
-   apply not_0_INR. intuition.
+   apply not_0_INR. intuition auto with *.
    
    rewrite fact_simpl. rewrite mult_INR.
    rewrite Nat.sub_succ_l ; [|intuition].
-   assert (/INR (S m) <= /INR (S n)) by (apply Rle_Rinv ; intuition) .
+   assert (/INR (S m) <= /INR (S n)) by (apply Rle_Rinv ; intuition auto with *) .
    rewrite <- tech_pow_Rmult.
    rewrite Rinv_mult_distr.
     rewrite Rmult_comm. rewrite Rmult_assoc.
     apply Rmult_le_compat.
-     left. apply Rinv_0_lt_compat. intuition.
+     left. apply Rinv_0_lt_compat. intuition auto with *.
      
      left. rewrite Rmult_comm. apply Rlt_mult_inv_pos ; apply INR_fact_lt_0.
      
-     apply Rle_Rinv ; [apply lt_0_INR ; intuition|apply lt_0_INR ; intuition|intuition].
+     apply Rle_Rinv ; try apply lt_0_INR; intuition auto with *.
      
      rewrite Rmult_comm. apply IHHnb.
     
-    apply not_0_INR. intuition.
+    apply not_0_INR. intuition auto with *.
     
     apply INR_fact_neq_0.
 Qed.
@@ -289,28 +289,28 @@ do 2 rewrite mult_INR. field_simplify.
  unfold Rdiv. rewrite Rinv_mult_distr.
   unfold pow. rewrite Rinv_mult_distr.
    do 2 rewrite Rmult_1_l. rewrite Rmult_1_r. apply Rmult_lt_compat_r.
-    apply Rinv_0_lt_compat. intuition.
+    apply Rinv_0_lt_compat. intuition auto with *.
     
-    apply Rinv_lt_contravar. apply Rmult_lt_0_compat ; intuition.
-    intuition.
+    apply Rinv_lt_contravar. apply Rmult_lt_0_compat ; intuition auto with *.
+    intuition auto with *.
     
-   apply not_0_INR. intuition.
+   apply not_0_INR. intuition auto with *.
    
-   rewrite Rmult_1_r.  apply not_0_INR. intuition.
+   rewrite Rmult_1_r.  apply not_0_INR. intuition auto with *.
    
-  apply not_0_INR. intuition.
+  apply not_0_INR. intuition auto with *.
   
-  apply not_0_INR. intuition.
+  apply not_0_INR. intuition auto with *.
   
- apply not_0_INR. intuition.
+ apply not_0_INR. intuition auto with *.
  
  split.
   apply INR_fact_neq_0.
   
   split.
-   apply not_0_INR. intuition.
+   apply not_0_INR. intuition auto with *.
    
-   apply not_0_INR. intuition.
+   apply not_0_INR. intuition auto with *.
 Qed.
 (* end hide *)
 
@@ -325,17 +325,17 @@ unfold exp_in in *.
 assert (Hgeom : (infinite_sum (fun i => (/INR (S b)) ^ i) (1 / (1 - /INR (S b))))).
  apply (geometric_sum (/INR (S b))).
  unfold Rabs. destruct (Rcase_abs (/INR (S b))) as [H1|[H1|H1]].
-  assert (H : (- /INR (S b) < 0 )) by intuition. 
-  eapply (Rlt_trans) ; [apply H|intuition].
+  assert (H : (- /INR (S b) < 0 )) by intuition auto with *. 
+  eapply (Rlt_trans) ; [apply H|intuition auto with *].
   
-  replace 1 with (/1) by intuition. 
+  replace 1 with (/1) by intuition auto with *. 
   apply Rinv_lt_contravar. 
-   rewrite Rmult_1_l. intuition.
+   rewrite Rmult_1_l. intuition auto with *.
    
    destruct b. 
     destruct Hb0. reflexivity. 
     
-    rewrite S_INR. assert (INR (S b) > 0) by intuition. lra.
+    rewrite S_INR. assert (INR (S b) > 0) by intuition auto with *. lra.
   
   rewrite H1. lra.
 (* end of geometric summation *)
@@ -346,7 +346,7 @@ assert (He : (infinite_sum (fun i : nat => / INR (fact i)) x)).
  exists N. intros n Hn. generalize (Hexp1 n Hn). intros H1.
  assert (Hrew : (sum_f_R0 (fun i : nat => / INR (fact i) * 1 ^ i) n = 
  sum_f_R0 (fun i : nat => / INR (fact i)) n)).
-  apply sum_eq. intros. rewrite pow1. intuition.
+  apply sum_eq. intros. rewrite pow1. intuition auto with *.
   
  rewrite <- Hrew. apply H1. clear Hexp.
 (* end of rewriting : He *)
@@ -405,7 +405,7 @@ eapply Rlt_le_trans with (/ INR (S b) * (1 / (1 - / INR (S b)))).
 
 split. 
  apply not_0_INR. 
-  intuition.
+  intuition auto with *.
   
   rewrite S_INR. unfold Rminus. rewrite Rplus_assoc.
   intro H2. ring_simplify in H2. revert H2. change (INR b <> 0). INR_solve.
@@ -414,17 +414,17 @@ Qed.
 Lemma inv_inf_1 : forall x, x <> 0%nat -> /INR x <= 1.
 Proof.
 intros x Hx0.
-assert (H : (INR x > 0)) by intuition.
+assert (H : (INR x > 0)) by intuition auto with *.
 assert (H1 : (INR x >= 1)).
  induction x.
   destruct Hx0. reflexivity.
   
-  replace 1 with (0 + 1) by intuition. rewrite S_INR.
-  apply Rplus_ge_compat. intuition. intuition.
+  replace 1 with (0 + 1) by intuition auto with *. rewrite S_INR.
+  apply Rplus_ge_compat; intuition auto with *.
   
  rewrite <- Rinv_1.
  apply Rle_Rinv. lra. assumption.
-intuition.
+intuition auto with *.
 Qed.
 
 Lemma minus_exp_sum_one : forall a b : nat, 

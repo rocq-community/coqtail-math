@@ -88,7 +88,7 @@ Proof.
  exists pr2;
 assert(RiemannInt pr2 = - RiemannInt pr) as Hrew;
   [ apply RiemannInt_P8 | rewrite Hrew];
-rewrite H; intuition.
+rewrite H; intuition auto with *.
 Qed.
 
 Lemma Rint_reverse_2 : forall f a b x, Rint f a b  x -> Rint f b a (-x).
@@ -136,7 +136,7 @@ erewrite RiemannInt_P18.
   apply Hf.
  apply Hab.
  rewrite (Rmin_def _ _ Hab), (Rmax_def _ _ Hab) in Heq.
- intuition.
+ intuition auto with *.
 rewrite Rmin_comm, Rmax_comm in Heq.
 intro RIf.
 apply Rint_reverse_1.
@@ -149,7 +149,7 @@ erewrite RiemannInt_P18.
   apply Hf.
   apply Hab.
  rewrite (Rmin_def _ _ Hab), (Rmax_def _ _ Hab) in Heq.
- intuition.
+ intuition auto with *.
 Qed.
 
 Lemma Rint_RiemannInt_link : forall f a b (pr : Riemann_integrable f a b), 
@@ -360,7 +360,7 @@ destruct(Rint_constant 0 a b) as [pr0 H0].
 ring_simplify in H0.
 apply Rint_le_compat with (fct_cte 0) f a b.
   apply Hab.
-  intros u Hu; apply Hpos; intuition.
+  intros u Hu; apply Hpos; intuition auto with *.
   exists pr0.
   apply H0.
 apply Hf.
@@ -452,7 +452,7 @@ assert(exists c, exists d, a <= c <= b /\ a <= d <= b /\ c < d /\ forall x, c <=
       apply Rmin_l.    
 destruct H as [c [d [ Hacb [Hadb [Hcd Hstp]]]]].
 destruct (Rint_subinterval _ _ _ _ _ Hacb HX) as [Y HY HZ'].
-assert(c <= d<=b) as Hcdb by intuition.
+assert(c <= d<=b) as Hcdb by intuition auto with *.
 destruct (Rint_subinterval _ _ _ _ _ Hcdb HZ') as [T HV HT'].
 destruct (continuity_ab_min f c d) as [m Hm].
  apply Hcdb.
@@ -599,8 +599,8 @@ pose proof prolongement_C1_C1 f d a b Hab Hder Hcont as [g [Heq Hdeq]].
 apply Rint_eq_compat with (derive g (diff0 g)).
   rewrite Rmin_def, Rmax_def; assumption.
 exists (RiemannInt_P32 g a b).
-rewrite RiemannInt_P33; intuition.
-do 2 (rewrite Heq; intuition).
+rewrite RiemannInt_P33; intuition auto with *.
+do 2 (rewrite Heq; intuition auto with *).
 Qed.
 
 Lemma Rint_derive2 : forall f a b d,

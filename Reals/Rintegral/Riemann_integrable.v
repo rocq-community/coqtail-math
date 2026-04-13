@@ -393,7 +393,7 @@ Proof.
   eapply Rlt_trans ; [|apply H1].
   assert (0 < x0 - x < h) by (intuition ; lra).
   rewrite Rabs_pos_eq. rewrite Rabs_pos_eq. intuition.
-  apply Rle_trans with (x0 - x) ; intuition. intuition.
+  apply Rle_trans with (x0 - x) ; intuition auto with *. intuition auto with *.
 (* end TODO *) 
   
 
@@ -432,7 +432,7 @@ Proof.
   apply Rabs_pos. 
   rewrite RiemannInt_bound_exchange_1.
   rewrite Rabs_Ropp.
-  apply RiemannInt_le_Rabs. left. intuition.
+  apply RiemannInt_le_Rabs. left. intuition auto with *.
    apply Rle_lt_trans with
     (RiemannInt (Riemann_integrable_constant (x + h) x (eps / 2)) * Rabs (/ h)).
   do 2 rewrite <- (Rmult_comm (Rabs (/ h))); apply Rmult_le_compat_l.

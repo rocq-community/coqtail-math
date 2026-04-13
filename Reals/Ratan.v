@@ -111,11 +111,11 @@ intros y y_pos ; destruct (cos_cv_0_left (/ (2 * y)) (PI / 6)) as [x [x_in Hx]].
  assert (cosx_pos : 0 < cos x) by (apply cos_pos ; assumption).
  exists x ; split ; [assumption |].
   apply Rlt_le_trans with (/ (2 * cos x)).
-   rewrite <- Rinv_involutive with y ; [apply Rinv_lt_contravar | apply Rgt_not_eq ; lra].
+   rewrite <- Rinv_inv with y ; apply Rinv_lt_contravar.
     apply Rlt_mult_inv_pos ; [apply Rmult_lt_0_compat |] ; (assumption || lra).
-    apply Rmult_Rinv_lt_compat_r_rev ; [| rewrite <- Rinv_mult_distr, Rmult_comm] ;
+    apply Rmult_Rinv_lt_compat_r_rev ; [| rewrite <- Rinv_mult, Rmult_comm] ;
     (assumption || apply Rgt_not_eq || idtac) ; lra.
-   rewrite Rinv_mult_distr ; try (apply Rgt_not_eq ; (assumption || lra)) ;
+   rewrite Rinv_mult ; try (apply Rgt_not_eq ; (assumption || lra)) ;
     apply Rmult_le_compat_r ; [left ; apply Rinv_0_lt_compat ; assumption |].
     transitivity (sin (PI / 6)).
      right ; rewrite sin_PI6 ; unfold Rdiv ; ring.
@@ -308,9 +308,8 @@ replace ((sin a) ^ 2 + (cos a) ^2) with (Rsqr (sin a) + Rsqr (cos a)) by
  rewrite sin2_cos2.
  replace (1 / (cos a) ^ 2) with ((/cos a) * (/cos a)).
  rewrite sqrt_square.
-  unfold Rdiv ; rewrite Rmult_1_l, Rinv_involutive.
+  unfold Rdiv ; rewrite Rmult_1_l, Rinv_inv.
   reflexivity.
- apply Rgt_not_eq ; assumption.
  left ; apply Rinv_0_lt_compat ; assumption.
 field.
  apply Rgt_not_eq ; assumption.
@@ -383,8 +382,8 @@ rewrite sin_plus. rewrite cos_plus.
 rewrite cos_PI. rewrite sin_PI.
 do 2 rewrite Rmult_0_r. unfold Rminus. rewrite Ropp_0.
 do 2 rewrite Rplus_0_r. unfold Rdiv.
-rewrite Rinv_mult_distr. change (-1) with (-(1)). rewrite <- Ropp_inv_permute.
-field. apply H. discrR. apply H. discrR.
+rewrite Rinv_mult. change (-1) with (-(1)). rewrite Rinv_opp.
+field. apply H.
 Qed.
 
 (* TODO: move this! *)

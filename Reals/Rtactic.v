@@ -541,7 +541,7 @@ match x with
   
   | (/ ?b) =>
     match goal with 
-      | H : (b <> 0) |- _ => rewrite (Rabs_Rinv b H)
+      | H : (b <> 0) |- _ => rewrite (Rabs_inv b H)
       | H : (b > 0) |- _ => rewrite (Rabs_Rinv_pos b H)
       | H : (0 > b) |- _ => rewrite (Rabs_Rinv_neg b H)
       | _ => idtac "For more reductions assert :" b "<> 0"

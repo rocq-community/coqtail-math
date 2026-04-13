@@ -201,12 +201,10 @@ intros f x Hf_deriv eps eps_pos ; destruct Hf_deriv as (l, Hl).
    assert (eps_2_pos : eps / 2 > 0) by lra ; 
    destruct (Hl (eps / 2)%R eps_2_pos) as ([alpha alpha_pos], Halpha).
    exists (Rmin (eps / (2 * Cnorm l)) (Rmin (1/2) alpha)) ; split ; [apply Rmin_pos |].
-  unfold Rdiv ; rewrite Rinv_mult_distr ; repeat apply Rmult_lt_0_compat.
+  unfold Rdiv ; rewrite Rinv_mult ; repeat apply Rmult_lt_0_compat.
   assumption.
   lra.
   apply Rinv_0_lt_compat ; apply Cnorm_pos_lt ; assumption.
-  apply Rgt_not_eq ; lra.
-  apply Rgt_not_eq ; apply Cnorm_pos_lt ; assumption.
   apply Rmin_pos ; lra.
  intros x' [_ x'_bd] ; simpl ; unfold C_dist.
   pose (h := x' - x) ; replace x' with (x+h) by (unfold h ; intuition auto with complex) ;
@@ -637,13 +635,11 @@ intro H.
   right ; rewrite <- Rmult_1_r, Rmult_assoc ; apply Rmult_eq_compat_l.
   unfold Cnorm, Cnorm_sqr.
   simpl.
-  rewrite Rmult_1_r, <- Rinv_mult_distr, sqrt_sqrt, Rinv_r.
+  rewrite Rmult_1_r, <- Rinv_mult, sqrt_sqrt, Rinv_r.
   reflexivity.
   apply Rgt_not_eq.
   apply Cnorm_sqr_pos_lt ; assumption.
   apply Cnorm_sqr_pos.
-  apply Rgt_not_eq ; apply sqrt_lt_R0 ; apply Cnorm_sqr_pos_lt ; assumption.
-  apply Rgt_not_eq ; apply sqrt_lt_R0 ; apply Cnorm_sqr_pos_lt ; assumption.
  assert (Main2 : fully_differentiable_pt Cnorm_sqr 1).
   intros v ; unfold Cnorm_sqr ; destruct v as [x y] ; exists (2 * x / (x, y)) ;
   apply Main.

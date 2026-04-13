@@ -271,13 +271,10 @@ intro n.
  repeat apply Rmult_lt_0_compat; try lra.
   now apply Rlt_le_trans with (7 / 8); lra || apply pi2_int.
   now apply INR_fact_lt_0.
-  repeat rewrite Rinv_mult_distr ; repeat apply Rmult_lt_0_compat.
-   rewrite Rinv_pow.
+  repeat rewrite Rinv_mult ; repeat apply Rmult_lt_0_compat.
+   rewrite <-pow_inv.
     apply pow_lt ; lra.
-    apply Rgt_not_eq ; lra.
    apply Rinv_0_lt_compat, pow_lt, INR_fact_lt_0.
-   apply Rgt_not_eq, pow_lt ; lra.
-   apply Rgt_not_eq, pow_lt, INR_fact_lt_0.
 Qed.
 
 Lemma Wallis_bound : forall (n : nat),  2*n / (S(2 * n)) <= W_odd n / W_even n <= 1.
@@ -598,7 +595,7 @@ ring_simplify.
 replace (sqrt n ^ 4) with (n ^ 2) by (rewrite <- (sqrt_sqrt n) at 1 ; [ring | intuition auto with *]).
 repeat rewrite Rpow_mult_distr.
 repeat rewrite <- pow_mult.
-repeat rewrite Rinv_mult_distr.
+repeat rewrite Rinv_mult.
 replace (2 ^ (4 * n))%R with (2 ^ (2 * n) * 2 ^ (2 * n))%R by (repeat rewrite pow_mult ; 
 rewrite <- Rpow_mult_distr ; replace (2 ^ 2 * 2 ^ 2)%R with (2 ^ 4)%R by (unfold pow ; ring) ; ring).
 rewrite (Nat.mul_comm n 4).
@@ -606,16 +603,17 @@ replace (n ^ (4 * n))%R with (n ^ (2 * n) * n ^ (2 * n))%R by
 (rewrite <- pow_add ; ring_simplify (2 * n + 2 * n)%nat ; ring).
 replace ((/exp 1) ^ (4 * n))%R with ((/exp 1) ^ (2 * n) * (/exp 1) ^ (2 * n))%R by 
 (rewrite <- pow_add ; ring_simplify (2 * n + 2 * n)%nat ; ring).
-repeat rewrite Rinv_pow. rewrite Rinv_involutive.
+repeat rewrite <- pow_inv. rewrite Rinv_inv.
 rewrite <- tech_pow_Rmult with (exp 1) (2 * n)%nat.
-rewrite <- (Rinv_pow (exp 1) _).
+rewrite (pow_inv (exp 1) _).
 do 2 rewrite <- tech_pow_Rmult.
 replace (/sqrt (2 * n))%R with (sqrt (2 * n) / (2 * n))%R by (apply sqrt_id ; inversion Hn ; [intuition auto with * | apply not_0_INR ; intuition auto with *]).
 unfold Rsqr. unfold Rdiv.
-repeat rewrite <- Rinv_pow. field.
+repeat rewrite pow_inv. field.
 
 (* Solving the "<> 0" equations *)
 
+{
 split. assumption.
 split. intro H. apply sqrt_eq_0 in H. apply not_0_INR in H. assumption.
 intuition auto with *.
@@ -626,91 +624,7 @@ split. apply pow_nonzero. apply not_0_INR. intuition auto with *.
 split. apply pow_nonzero. intro. lra.
 split. apply PI_neq0.
 apply pow_nonzero. intro. generalize (exp_pos 1) ; intros ; lra.
-apply not_0_INR. intuition auto with *.
-intro ; lra. 
-apply not_0_INR. intuition auto with *. 
-intro. generalize (exp_pos 1) ; intros ; lra.
-intro. generalize (exp_pos 1) ; intros ; lra.
-apply Rinv_neq_0_compat. intro. generalize (exp_pos 1) ; intros ; lra.
-apply not_0_INR ; intuition auto with *.
-apply Rinv_neq_0_compat. intro. generalize (exp_pos 1) ; intros ; lra.
-apply not_0_INR ; intuition auto with *.
-intro ; lra.
-apply pow_nonzero. apply not_0_INR ; intuition auto with *.
-apply pow_nonzero. apply Rinv_neq_0_compat. intro. generalize (exp_pos 1) ; intros ; lra.
-apply Rmult_integral_contrapositive ; split.
-apply pow_nonzero. apply not_0_INR ; intuition auto with *.
-apply pow_nonzero. apply Rinv_neq_0_compat. intro. generalize (exp_pos 1) ; intros ; lra.
-intro H. apply sqrt_eq_0 in H. generalize H. apply not_0_INR ; intuition auto with *.
-apply pos_INR.
-apply Rmult_integral_contrapositive ; split.
-apply Rmult_integral_contrapositive ; split.
-apply pow_nonzero. apply not_0_INR ; intuition auto with *.
-apply pow_nonzero. apply Rinv_neq_0_compat. intro. generalize (exp_pos 1) ; intros ; lra.
-intro H. apply sqrt_eq_0 in H. generalize H. apply not_0_INR ; intuition auto with *.
-apply pos_INR.
-apply Hneq.
-apply pow_nonzero. intro ; lra.
-apply pow_nonzero. apply not_0_INR ; intuition auto with *.
-apply Rmult_integral_contrapositive ; split.
-apply pow_nonzero. intro ; lra.
-apply pow_nonzero. apply not_0_INR ; intuition auto with *.
-apply pow_nonzero. apply Rinv_neq_0_compat. intro. generalize (exp_pos 1) ; intros ; lra.
-apply Rmult_integral_contrapositive ; split.
-apply Rmult_integral_contrapositive ; split.
-apply pow_nonzero. intro ; lra.
-apply pow_nonzero. apply not_0_INR ; intuition auto with *.
-apply pow_nonzero. apply Rinv_neq_0_compat. intro. generalize (exp_pos 1) ; intros ; lra.
-intro H. apply sqrt_eq_0 in H. generalize H. apply Rmult_integral_contrapositive ; split.
-intro ; lra.
-apply not_0_INR. intuition auto with *.
-apply Rmult_le_pos. intuition auto with *.
-intuition auto with *.
-apply Rmult_integral_contrapositive ; split.
-apply Rmult_integral_contrapositive ; split.
-apply Rmult_integral_contrapositive ; split.
-apply pow_nonzero. intro ; lra.
-apply pow_nonzero. apply not_0_INR ; intuition auto with *.
-apply pow_nonzero. apply Rinv_neq_0_compat. intro. generalize (exp_pos 1) ; intros ; lra.
-intro H. apply sqrt_eq_0 in H. generalize H. apply Rmult_integral_contrapositive ; split.
-intro ; lra.
-apply not_0_INR. intuition auto with *.
-apply Rmult_le_pos; intuition auto with *.
-assumption.
-apply PI_neq0.
-apply Rmult_integral_contrapositive ; split.
-apply Rmult_integral_contrapositive ; split.
-apply Rmult_integral_contrapositive ; split.
-apply Rmult_integral_contrapositive ; split.
-apply pow_nonzero. intro ; lra.
-apply pow_nonzero. apply not_0_INR ; intuition auto with *.
-apply pow_nonzero. apply Rinv_neq_0_compat. intro. generalize (exp_pos 1) ; intros ; lra.
-intro H. apply sqrt_eq_0 in H. generalize H. apply Rmult_integral_contrapositive ; split.
-intro ; lra.
-apply not_0_INR. intuition auto with *.
-apply Rmult_le_pos; intuition auto with *.
-assumption.
-apply Rmult_integral_contrapositive ; split.
-apply PI_neq0.
-apply Rmult_integral_contrapositive ; split.
-apply Rmult_integral_contrapositive ; split.
-apply Rmult_integral_contrapositive ; split.
-apply Rmult_integral_contrapositive ; split.
-apply pow_nonzero. intro ; lra.
-apply pow_nonzero. apply not_0_INR ; intuition auto with *.
-apply pow_nonzero. apply Rinv_neq_0_compat. intro. generalize (exp_pos 1) ; intros ; lra.
-intro H. apply sqrt_eq_0 in H. generalize H. apply Rmult_integral_contrapositive ; split.
-intro ; lra.
-apply not_0_INR. intuition auto with *.
-apply Rmult_le_pos; intuition auto with *.
-assumption.
-apply Rmult_integral_contrapositive ; split.
-apply Rmult_integral_contrapositive ; split.
-apply Rmult_integral_contrapositive ; split.
-apply pow_nonzero. apply not_0_INR ; intuition auto with *.
-apply pow_nonzero. apply Rinv_neq_0_compat. intro. generalize (exp_pos 1) ; intros ; lra.
-intro H. apply sqrt_eq_0 in H. generalize H. apply not_0_INR. intuition auto with *.
-apply pos_INR. assumption.
+}
 (* End of "<> 0" *)
 
 (* end of simplification *)

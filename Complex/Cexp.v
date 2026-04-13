@@ -93,8 +93,7 @@ assert (t : (1 > 0)%nat) by constructor ;
  left ; apply HN ; intuition auto with *.
  apply not_0_INR ; intuition auto with *.
 
-unfold M ; rewrite Rinv_involutive ; [| apply Rgt_not_eq ; apply Rplus_le_lt_0_compat ;
- [apply Rabs_pos | apply Rlt_0_1]] ; intuition auto with *.
+unfold M ; rewrite Rinv_inv ; auto with *.
 Qed.
 
 Definition Cexp (z : C) := sum  _ exp_infinite_cv_radius z.

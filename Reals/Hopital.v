@@ -924,7 +924,7 @@ Proof.
      
      now assumption.
    
-   rewrite Rabs_Rinv.
+   rewrite Rabs_inv.
     rewrite (Rabs_right (g x)).
      apply (Rmult_lt_reg_l (g x)).
       now assumption.
@@ -944,8 +944,6 @@ Proof.
     
     now lra.
     
-    intro. now lra.
-  
   assert (Heps4 : eps / 4 > 0) by lra. assert (bizarre : forall eps L, L >= 0 -> eps > 0 ->
                    exists eps1, eps1 > 0 /\  eps1 * (L + eps) < eps / 2).
    intros. exists (/2 * ((eps0 / 2) * / (L0 + eps0))). split.
@@ -2161,7 +2159,7 @@ Proof.
      
      now assumption.
    
-   rewrite Rabs_Rinv.
+   rewrite Rabs_inv.
     rewrite (Rabs_right (g x)).
      apply (Rmult_lt_reg_l (g x)).
       now assumption.
@@ -2180,8 +2178,6 @@ Proof.
          intro. now lra.
     
     now lra.
-    
-    intro. now lra.
     
   specialize (H0 (eps) H). destruct H0 as [y [open H0]]. assert (Hdeb3 : 2 * eps  + 2> 0) by lra.
   specialize (Hlimder (2 * eps + 2) Hdeb3).
@@ -2510,7 +2506,7 @@ Proof.
      
      now assumption.
    
-   rewrite Rabs_Rinv.
+   rewrite Rabs_inv.
     rewrite (Rabs_right (g x)).
      apply (Rmult_lt_reg_l (g x)).
       now assumption.
@@ -2529,8 +2525,6 @@ Proof.
          intro. now lra.
     
     now lra.
-    
-    intro. now lra.
   
   specialize (H0 (eps) H). destruct H0 as [y [open H0]]. assert (Hdeb3 : 2 * eps  + 2> 0) by lra.
   specialize (Hlimder (2 * eps + 2) Hdeb3).

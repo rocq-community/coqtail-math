@@ -374,11 +374,10 @@ Proof.
 intros An M M_pos An_neq An_frac_ub r r_bd.
  assert (r_lb := Rabs_pos r) ; case r_lb ; clear r_lb ; intro rabs_lb.
  assert (my_lam : 0 < /Rabs r - M).
- apply Rgt_minus ; rewrite <- Rinv_involutive.
+ apply Rgt_minus ; rewrite <- Rinv_inv.
  apply Rinv_lt_contravar.
  apply Rmult_lt_0_compat ; [| apply Rlt_trans with (Rabs r)] ; assumption.
  assumption.
- apply Rgt_not_eq ; assumption.
  exists (Cnorm (An 0%nat)) ; intros x Hyp ;
   elim Hyp ; intros n Hn ; rewrite Hn ;
   unfold_gt ; rewrite Cnorm_Cmult.
@@ -441,11 +440,10 @@ intros An lam lam_pos An_neq An_frac_cv r r_bd.
   apply Rle_lt_trans with (Rabs r) ; [apply Rabs_pos | assumption].
  pose (eps := (/ (middle (Rabs r) (/ Cnorm lam)) - Cnorm lam)%R).
  assert (eps_pos : 0 < eps).
-  apply Rgt_minus ; rewrite <- Rinv_involutive.
+  apply Rgt_minus ; rewrite <- Rinv_inv.
   apply Rinv_lt_contravar.
   apply Rmult_lt_0_compat ; [| apply Rinv_0_lt_compat] ; assumption.
   assumption.
-  apply Rgt_not_eq ; assumption.
  apply Cpser_alembert_prelim2 with (Cnorm lam + eps)%R.
  lra.
  apply An_neq.
@@ -460,7 +458,7 @@ intros An lam lam_pos An_neq An_frac_cv r r_bd.
  apply RRle_abs.
  left ; apply HN ; intuition auto with *.
  replace (Cnorm lam + eps)%R with (/ (middle (Rabs r) (/ Cnorm lam)))%R.
- rewrite Rinv_involutive ; [| apply Rgt_not_eq] ; assumption.
+ rewrite Rinv_inv ; assumption.
  unfold eps ; ring.
 Qed.
 
@@ -481,8 +479,7 @@ intros An An_neq An_frac_0 r.
  unfold R_dist in |-* ; rewrite Rminus_0_r, Rabs_right ; [reflexivity | apply Rle_ge ;
  apply Cnorm_pos].
  left ; apply HN ; intuition auto with *.
- rewrite Rinv_involutive ; [lra |] ; apply Rgt_not_eq ;
- apply Rplus_le_lt_0_compat ; [apply Rabs_pos | apply Rlt_0_1].
+ rewrite Rinv_inv ; lra.
 Qed.
 
 Lemma Cpser_bound_criteria : forall (An : nat -> C) (z l : C),
@@ -567,11 +564,10 @@ intros An r rho r' r'_bd.
  assert (Rabsr_pos : 0 < Rabs r).
   apply Rle_lt_trans with (Rabs r') ; [apply Rabs_pos | assumption].
  assert (x_lt_1 : Rabs (r'/ r) < 1).
-  unfold Rdiv ; rewrite Rabs_mult ; rewrite Rabs_Rinv.
+  unfold Rdiv ; rewrite Rabs_mult ; rewrite Rabs_inv.
   replace 1%R with (Rabs r *  / Rabs r)%R.
   apply Rmult_lt_compat_r ; [apply Rinv_0_lt_compat |] ; assumption.
   apply Rinv_r ; apply Rgt_not_eq ; assumption.
-  intro Hf ; rewrite Hf, Rabs_R0 in Rabsr_pos ; apply (Rlt_irrefl _ Rabsr_pos).
   destruct rho as (B,HB).
   case (Req_or_neq r') ; intro r'_lb.
   exists (Cnorm (An 1%nat)) ; intros x Hx ; destruct Hx as (i, Hi) ;

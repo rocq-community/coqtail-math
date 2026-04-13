@@ -1406,12 +1406,11 @@ destruct N.
     apply (cn_maj (S n) (S N)); lia.
     apply Rle_Rinv; INR_solve.
    unfold d', d; rewrite Ropp_Ropp_IZR; rewrite <- INR_IZR_INZ.
-   rewrite <- Rabs_Ropp; rewrite Ropp_inv_permute.
+   rewrite <- Rabs_Ropp; rewrite <- Rinv_opp.
    replace (- (2 * - INR (S n) + 1)) with ((2 * INR n + 1)) by (rewrite plus_1_S; ring).
    rewrite Rabs_pos_eq; try apply Rle_Rinv;
      try (apply Rlt_le; apply Rinv_0_lt_compat);
      INR_solve.
-   rewrite INR_IZR_INZ; discrR.
 Qed.
 
 Lemma bound_eq : forall N, abound (S N) = bound1 (S N) + bound2 (S N).

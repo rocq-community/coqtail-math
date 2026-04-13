@@ -43,10 +43,9 @@ Proof.
 intros x y H.
 unfold Rdiv.
 rewrite Rabs_mult.
-rewrite Rabs_Rinv. field.
+rewrite Rabs_inv. field.
 apply Rabs_no_R0.
 assumption.
-intuition.
 Qed.
 
 Lemma integer_INR_div : forall b, b <> O -> / INR b * INR (fact b) = INR (fact (b - 1)).
@@ -261,7 +260,7 @@ induction Hnb.
    rewrite Nat.sub_succ_l ; [|intuition].
    assert (/INR (S m) <= /INR (S n)) by (apply Rle_Rinv ; intuition auto with *) .
    rewrite <- tech_pow_Rmult.
-   rewrite Rinv_mult_distr.
+   rewrite Rinv_mult.
     rewrite Rmult_comm. rewrite Rmult_assoc.
     apply Rmult_le_compat.
      left. apply Rinv_0_lt_compat. intuition auto with *.
@@ -271,10 +270,6 @@ induction Hnb.
      apply Rle_Rinv ; try apply lt_0_INR; intuition auto with *.
      
      rewrite Rmult_comm. apply IHHnb.
-    
-    apply not_0_INR. intuition auto with *.
-    
-    apply INR_fact_neq_0.
 Qed.
 
 Lemma identite1 : forall b, INR (fact b) * / INR (fact (S (S b))) <
@@ -286,8 +281,8 @@ rewrite Nat.sub_succ_l ; [|intuition].
 rewrite Nat.sub_diag.
 rewrite <- tech_pow_Rmult. simpl pow.
 do 2 rewrite mult_INR. field_simplify.
- unfold Rdiv. rewrite Rinv_mult_distr.
-  unfold pow. rewrite Rinv_mult_distr.
+ unfold Rdiv. rewrite Rinv_mult.
+  unfold pow. rewrite Rinv_mult.
    do 2 rewrite Rmult_1_l. rewrite Rmult_1_r. apply Rmult_lt_compat_r.
     apply Rinv_0_lt_compat. intuition auto with *.
     
@@ -296,14 +291,6 @@ do 2 rewrite mult_INR. field_simplify.
     
    apply not_0_INR. intuition auto with *.
    
-   rewrite Rmult_1_r.  apply not_0_INR. intuition auto with *.
-   
-  apply not_0_INR. intuition auto with *.
-  
-  apply not_0_INR. intuition auto with *.
-  
- apply not_0_INR. intuition auto with *.
- 
  split.
   apply INR_fact_neq_0.
   

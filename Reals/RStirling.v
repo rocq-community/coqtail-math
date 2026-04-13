@@ -162,16 +162,13 @@ eapply Rseq_big_O_eq_compat.
   destruct n; intros Hc.
     lra.
     assert (H := pos_INR (S n)); lra.
-    rewrite Rabs_Rinv.
+    rewrite Rabs_inv.
     rewrite <- Rinv_1.
     apply Rinv_1_lt_contravar; [apply Rle_refl|].
     rewrite Rabs_right; [|apply Rle_ge; apply pos_INR].
     replace (2 + n)%nat with (S (S n)) by lia.
     repeat rewrite S_INR.
     assert (H := pos_INR n); lra.
-    replace (2 + n)%nat with (S (S n)) by lia.
-    repeat rewrite S_INR.
-    intros Hc; assert (H := pos_INR n); lra.
   apply Rseq_eq_refl.
   lra.
   apply Rseq_cv_pos_infty_inv_compat.
@@ -394,9 +391,9 @@ assert(l^2/(2*PI) = 1) as Heq.
    rewrite exp_Ropp.
    replace (exp n) with (exp (R1*n)) by auto with *.
    rewrite <- (exp_pow R1 n).
-   unfold Rdiv; rewrite Rpow_mult_distr, Rinv_pow.
+   unfold Rdiv; rewrite Rpow_mult_distr, pow_inv.
     field.
-    assert (H := exp_pos 1); auto with *.
+    pose proof (exp_pos 1); auto with *.
   eapply Rseq_equiv_eq_compat.
    apply Rseq_eq_refl.
    apply Hrw.

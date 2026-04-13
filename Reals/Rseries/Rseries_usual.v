@@ -13,7 +13,7 @@ apply Rser_pos_maj_cv with (/ (Rseq_shift INR * Rseq_shifts INR 2)).
  intro n ; left ; apply Rinv_0_lt_compat, pow_lt, lt_0_INR, Nat.lt_0_succ.
  intro n ; left ; apply Rinv_0_lt_compat, Rmult_lt_0_compat ; apply lt_0_INR, Nat.lt_0_succ.
  intro p ; unfold Rseq_shift, Rseq_shifts, Rseq_mult, Rseq_inv, pow ;
- rewrite Rmult_1_r, Rinv_mult_distr, Rinv_mult_distr ;
+ rewrite Rmult_1_r, Rinv_mult, Rinv_mult ;
  try (now (apply Rgt_not_eq, lt_0_INR, Nat.lt_0_succ)).
  apply Rmult_le_compat ; try (now (left ; apply Rinv_0_lt_compat, lt_0_INR, Nat.lt_0_succ)).
   apply Rle_Rinv ; try (now (apply lt_0_INR, Nat.lt_0_succ)) ; apply le_INR ; apply Nat.le_succ_diag_r.
@@ -50,7 +50,7 @@ cut ({l | Rser_cv (Rseq_inv_poly d) l}).
   apply Rlt_le; apply Rinv_0_lt_compat; INR_solve.
 
 apply Rser_pos_maj_cv_shift with (fun (i : nat) => (/ (INR (S i) ^ 2))%R).
- unfold Rseq_inv_poly; intro n; rewrite <- Rinv_pow; [|INR_solve].
+ unfold Rseq_inv_poly; intro n; rewrite pow_inv.
  split.
   apply Rlt_le; apply Rinv_0_lt_compat; apply pow_lt; INR_solve.
   apply Rle_Rinv.

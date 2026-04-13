@@ -84,11 +84,10 @@ unfold Rdiv.
 rewrite Rabs_mult.
 rewrite Rmult_eq_compat_l with (r2 := / 2).
 reflexivity.
-rewrite Rabs_Rinv.
+rewrite Rabs_inv.
 rewrite Rabs_pos_eq.
 reflexivity.
 lra.
-apply Rgt_not_eq; lra.
 Qed.
 
 End middle_facts.

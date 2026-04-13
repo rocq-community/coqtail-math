@@ -80,7 +80,7 @@ unfold Un; destruct n.
     apply Rplus_le_compat_r.
     apply pos_INR.
   rewrite Rabs_Ropp.
-  rewrite Rabs_Rinv; [|intros Hc; lra].
+  rewrite Rabs_inv.
   rewrite Rabs_right; [|lra].
   apply (Rmult_le_reg_l (INR (S n))); [lra|].
   rewrite Rinv_r; [lra|intros Hc; lra].
@@ -349,7 +349,7 @@ unfold Un; destruct n.
     apply pos_INR.
   unfold Rdiv; rewrite Rabs_mult.
   rewrite pow_1_abs; rewrite Rmult_1_l.
-  rewrite Rabs_Rinv; [|intros Hc; lra].
+  rewrite Rabs_inv.
   rewrite Rabs_right; [|lra].
   apply (Rmult_le_reg_l (INR (S n))); [lra|].
   rewrite Rinv_r; [lra|intros Hc; lra].

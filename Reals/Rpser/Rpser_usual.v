@@ -233,11 +233,9 @@ Lemma Rdiv_exp_seq_simpl : forall n, (exp_seq (S n)) / (exp_seq n) = / INR (S n)
 Proof.
 intros n ; unfold exp_seq.
  replace (fact (S n))%nat with ((S n) * fact n)%nat by reflexivity ;
- unfold Rdiv ; rewrite mult_INR, Rinv_involutive ;
- [rewrite Rinv_mult_distr ;
-  [rewrite Rmult_assoc, Rinv_l, Rmult_1_r ;
-   [reflexivity |] | |] |] ;
-   apply not_0_INR ; auto ;  apply fact_neq_0.
+ unfold Rdiv ; rewrite mult_INR, Rinv_inv, Rinv_mult.
+ rewrite Rmult_assoc, Rinv_l, Rmult_1_r; auto.
+ all: apply not_0_INR ; auto ; apply fact_neq_0.
 Qed.
 
 Lemma exp_infinite_cv_radius : infinite_cv_radius exp_seq.
@@ -259,8 +257,7 @@ assert (t : (1 > 0)%nat) by constructor ;
  right ; unfold R_dist, Rseq_shift, Rseq_poly, pow ; apply Rabs_eq_compat ;
  rewrite Rminus_0_r, <- (Rmult_1_r (INR (S (N + n)))) ; reflexivity.
  left ; apply HN ; intuition auto with *.
- unfold M ; rewrite Rinv_involutive ; [| apply Rgt_not_eq ; apply Rplus_le_lt_0_compat ;
- [apply Rabs_pos | apply Rlt_0_1]] ; intuition auto with *.
+ unfold M ; rewrite Rinv_inv; intuition auto with *.
 Qed.
 
 Lemma cos_infinite_cv_radius : infinite_cv_radius cos_seq.
@@ -299,8 +296,8 @@ Lemma Deriv_exp_seq_simpl : (An_deriv exp_seq == exp_seq)%Rseq.
 Proof.
 intro n ; unfold exp_seq, An_deriv, Rseq_shift, Rseq_mult.
  replace (fact (S n))%nat with ((S n) * fact n)%nat by reflexivity.
- rewrite mult_INR, Rinv_mult_distr, <- Rmult_assoc, Rinv_r, Rmult_1_l ;
- [reflexivity | | |] ; replace 0 with (INR O) by reflexivity ; apply not_INR ;
+ rewrite mult_INR, Rinv_mult, <- Rmult_assoc, Rinv_r, Rmult_1_l ;
+ [reflexivity |] ; replace 0 with (INR O) by reflexivity ; apply not_INR ;
  try apply fact_neq_0 ; intuition auto with *.
 Qed.
 
@@ -496,12 +493,11 @@ rewrite <- Rinv_1 ; apply Rpser_alembert_finite.
   intro ; apply Rseq_shifts_poly_neq ; lia.
  intro n ; unfold Rseq_shift, Rseq_shifts, Rseq_abs, Rseq_div, Rseq_poly,
   extracted, arct_seq, Rdiv ; do 2 rewrite pow_1 ;
-  rewrite Rinv_involutive, Rabs_right.
+  rewrite Rinv_inv, Rabs_right.
   simpl proj1_sig ; simpl mult ; simpl plus ; rewrite <- plus_n_Sm ; apply Rmult_comm.
   rewrite Rmult_comm ; apply Rle_ge, Rle_mult_inv_pos.
    apply pos_INR.
    apply lt_0_INR ; lia.
-  apply not_0_INR ; lia.
 Qed.
 
 Definition arctan_seq : Rseq.

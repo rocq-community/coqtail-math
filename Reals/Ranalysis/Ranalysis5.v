@@ -160,14 +160,9 @@ intros f g lb ub Hfg x Df_g gx_in Hgx x_in df_neq ;
  assert (glbub := open_interval_inhabited _ _ _ gx_in).
  apply limit1_in_ext with (fun y => / ((f (g y) - f (g x)) / (g y - g x))).
   unfold reciprocal_interval, comp in Hfg ; intros y [y_in y_neq] ;
-  unfold growth_rate ; rewrite Rinv_Rdiv.
+  unfold growth_rate ; rewrite Rinv_div.
   do 2 (rewrite Hfg ; [| apply open_interval_interval ; assumption]) ;
    reflexivity.
-  do 2 (rewrite Hfg ; [| apply open_interval_interval ; assumption]).   
-  apply Rminus_eq_contra ; symmetry ; assumption.
-  apply Rminus_eq_contra ; intro Hf ; apply y_neq.
-  rewrite <- (Hfg x), <- (Hfg y) ; [rewrite Hf ; reflexivity | |] ;
-   apply open_interval_interval ; assumption.
  apply limit_inv ; [| assumption].
  unfold derive_open_interval ; destruct (in_open_interval_dec (g lb) (g ub) (g x))
   as [x_in' |] ; [| contradiction] ; destruct (Df_g _ x_in') as [l Hl] ;
@@ -204,14 +199,9 @@ intros f g lb ub Hfg x Df_gx gx_in Hgx x_in df_neq ;
  assert (glbub := open_interval_inhabited _ _ _ gx_in).
  apply limit1_in_ext with (fun y => / ((f (g y) - f (g x)) / (g y - g x))).
   unfold reciprocal_interval, comp in Hfg ; intros y [y_in y_neq] ;
-  unfold growth_rate ; rewrite Rinv_Rdiv.
+  unfold growth_rate ; rewrite Rinv_div.
   do 2 (rewrite Hfg ; [| apply open_interval_interval ; assumption]) ;
    reflexivity.
-  do 2 (rewrite Hfg ; [| apply open_interval_interval ; assumption]).   
-  apply Rminus_eq_contra ; symmetry ; assumption.
-  apply Rminus_eq_contra ; intro Hf ; apply y_neq ;
-  rewrite <- (Hfg x), <- (Hfg y) ; [rewrite Hf ; reflexivity | |] ;
-   apply open_interval_interval ; assumption.
  apply limit_inv ; [| assumption].
  destruct Df_gx as [l Hl] ; intros eps eps_pos ;
  destruct (Hl _ eps_pos) as [alpha [alpha_pos Halpha]].
@@ -506,7 +496,7 @@ intros fn fn' f g x lb ub pr x_in Dfn_eq_fn' fn_CV_f fn'_CVU_g g_cont eps eps_po
  eapply derivable_pt_lim_open_interval_pt_lim, Dfn_eq_fn' ;
   apply c_deduc, open_interval_interval ; assumption.
 
- right ; rewrite (Rabs_Rinv _ h_neq) ; field ; apply Rabs_no_R0 ; assumption.
+ right ; rewrite (Rabs_inv _) ; field ; apply Rabs_no_R0 ; assumption.
 Qed.
 
 

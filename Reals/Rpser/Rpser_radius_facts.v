@@ -89,11 +89,10 @@ intros An r rho r' r'_bd.
  assert (Rabsr_pos : 0 < Rabs r).
   apply Rle_lt_trans with (Rabs r') ; [apply Rabs_pos | assumption].
  assert (x_lt_1 : Rabs (r'/ r) < 1).
-  unfold Rdiv ; rewrite Rabs_mult ; rewrite Rabs_Rinv.
+  unfold Rdiv ; rewrite Rabs_mult ; rewrite Rabs_inv.
   replace 1 with (Rabs r *  / Rabs r).
   apply Rmult_lt_compat_r ; [apply Rinv_0_lt_compat |] ; assumption.
   apply Rinv_r ; apply Rgt_not_eq ; assumption.
-  intro Hf ; rewrite Hf, Rabs_R0 in Rabsr_pos ; apply (Rlt_irrefl _ Rabsr_pos).
   destruct rho as (B,HB).
   case (Req_or_neq r') ; intro r'_lb.
   exists (Rabs (An 1%nat)) ; intros x Hx ; destruct Hx as (i, Hi) ;
@@ -120,13 +119,9 @@ intros An r rho r' r'_bd.
  simpl ; field ; assumption.
  field_simplify.
  unfold Rdiv ; repeat (rewrite <- Rmult_assoc) ; apply Rmult_eq_compat_r.
- rewrite <- Rinv_pow.
+ rewrite pow_inv.
  field.
  apply pow_nonzero.
- intro Hf ; rewrite Hf, Rabs_R0 in r'_bd.
- assert (H0 : 0 < 0).
- apply Rlt_trans with (Rabs r') ; assumption.
- apply (Rlt_irrefl _ H0).
  intro Hf ; rewrite Hf, Rabs_R0 in r'_bd.
  assert (H0 : 0 < 0).
  apply Rlt_trans with (Rabs r') ; assumption.

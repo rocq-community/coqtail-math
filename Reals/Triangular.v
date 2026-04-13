@@ -122,7 +122,7 @@ Proof.
  unfold R_dist, inv_sn.
  rewrite Rminus_0_r.
  rewrite Rabs_Rinv_pos; [ | INR_solve ].
- rewrite <- (Rinv_involutive e); auto with *.
+ rewrite <- (Rinv_inv e); auto with *.
  apply Rinv_lt_contravar.
   apply Rmult_lt_0_compat; auto with *.
   
